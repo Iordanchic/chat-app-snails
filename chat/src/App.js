@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import Login from './components/Login/Login'
+
+import Login from './components/Login/Login';
+import MainLayout from './components/MainLayout';
 
 class App extends Component {
 
   getInfoFromServer = () => {
 
-    let id = JSON.stringify({ number: 100  });
+    let id = JSON.stringify({ number: 100 });
     fetch(`/aaa`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: id })
     .then(res => res.json())
     .then(res => {
@@ -22,11 +24,11 @@ class App extends Component {
   render() {
     
     return (
-      <div className="App">
+      <MainLayout>
         <Switch>
-          <Route exact path="/" component={Login} />
+          <Route path='/login' component={Login} />
         </Switch>
-      </div>
+      </MainLayout>
     );
   }
 }

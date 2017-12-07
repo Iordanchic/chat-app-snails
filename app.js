@@ -10,7 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var jsonParser = bodyParser.json();
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// app.get('/', (req, res) => {
+//     console.log("GET REQUEST FROM SERVER")
+//     res.send('Hello World!')
+// })
 
 app.use('/aaa', aaa);
 
