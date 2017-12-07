@@ -3,6 +3,7 @@ import {Route, Switch, Link} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Login from './components/Login/Login'
+import Header from "./components/Header/Header";
 
 class App extends Component {
 
@@ -22,7 +23,8 @@ class App extends Component {
   render() {
     
     return (
-      <div className="App">
+      <div className="App container">
+          <Header />
         <Switch>
           <Route exact path="/" component={Login} />
         </Switch>
