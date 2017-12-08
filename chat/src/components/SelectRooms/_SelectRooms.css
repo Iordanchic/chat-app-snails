@@ -22,6 +22,9 @@
     color: #00ffff;
 }
 .room-select{
+    cursor: pointer;
+    display: block;
+    margin: auto;
     width: 90px;
     height: 90px;
     border-radius: 50%;
@@ -29,4 +32,15 @@
     color: #ffffff;
     line-height: 90px;
     text-align: center;
+    margin-bottom: 40px;
+    font-size: 20px;
+    border: 4px ridge black;
+    transition: 1s linear;
+
 }
+.room-select:hover{
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    text-decoration: none;
+}
+

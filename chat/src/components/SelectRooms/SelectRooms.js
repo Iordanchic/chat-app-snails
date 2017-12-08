@@ -10,8 +10,8 @@ export default class SelectRooms extends React.Component {
 
     render(){
         return(
-            <div className="row">
-                <div className="rooms col-3">
+            <div className="left-bar-wrapper  col-3">
+                <div className="rooms">
                     <div className="row">
                         <div className="top-selector col-12 text-center">
                             <div className="type-select">
@@ -25,10 +25,10 @@ export default class SelectRooms extends React.Component {
                             </div>
                         </div>
                         <div className="rooms-list col-12">
-                            <div className="room-select">Room 1</div>
-                            <div className="room-select">Room 2</div>
-                            <div className="room-select">Room 3</div>
-                            <div className="room-select">Room 4</div>
+                            <Link to={'/chat'} className="room-select">Room 1</Link>
+                            <Link to={'/chat'} className="room-select">Room 2</Link>
+                            <Link to={'/chat'} className="room-select">Room 3</Link>
+                            <Link to={'/chat'} className="room-select">Room 4</Link>
                         </div>
                     </div>
 

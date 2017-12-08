@@ -1,0 +1,80 @@
+.profile-wrapper button{
+    outline: none;
+}
+.profile-wrapper button:active{
+    outline: none;
+}
+.profile-wrapper {
+    background: #e0e0e0;
+    padding: 15px;
+}
+.profile-btn {
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background: #121d2c;
+    color: #ffffff;
+    cursor: pointer;
+}
+.profile-btn:hover{
+     opacity: 0.8;
+ }
+.profile-img-edit-block{
+    text-align: center;
+}
+.profile-img-edit-pic{
+    margin: auto;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #121d2c;
+}
+.profile-img-buttons {
+    margin-top: 30px;
+}
+.profile-img-buttons button {
+    width: 40%;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    color: #ffffff;
+    background: #121d2c;
+    cursor: pointer;
+}
+.profile-img-buttons button:hover{
+     opacity: 0.8;
+ }
+
+.profile-info-wrapper label, .profile-info-wrapper input{
+    width: 100%;
+}
+.profile-info-wrapper label{
+    color: #121d2c;
+
+}
+.profile-info-wrapper input{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #b7b7b7;
+    height: 40px;
+    outline: none;
+    padding-left: 10px;
+}
+
+.profile-btns-wrapper {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.profile-btns-wrapper button {
+    width: 30%;
+    height: 40px;
+    border-radius: 5px;
+    background: #121d2c;
+    color: #ffffff;
+    cursor: pointer;
+}
+.profile-btns-wrapper button:hover{
+     opacity: 0.8;
+ }
