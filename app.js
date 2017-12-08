@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var jsonParser = bodyParser.json();
 
 app.post('/msgtobd', urlencodedParser, function(req,res){
-    var body = req.body
+    var body = req.body;
+    res.json({"lol":body})
 })
 
 io.on('connection', (client) => {
