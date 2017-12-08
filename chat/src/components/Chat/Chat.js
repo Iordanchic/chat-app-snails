@@ -51,7 +51,7 @@ export default class Chat extends Component {
                     })}
                 </div>
                 <div className="type">
-                    <Input/>
+                    <Input socket={socket}/>
                 </div>
                 </div>
                 </div>
