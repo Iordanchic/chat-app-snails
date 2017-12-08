@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var jsonParser = bodyParser.json();
 
 app.post('/msgtobd', urlencodedParser, function(req,res){
-    var body = req.body
+    var body = req.body;
+    res.json({"lol":body})
 })
 
 io.on('connection', (client) => {
@@ -30,7 +31,7 @@ io.on('connection', (client) => {
 });
 
 
-const port = 8000;
+const port = 8001;
 io.listen(port);
 console.log('listening on port to socket', port);
 

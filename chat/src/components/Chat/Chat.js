@@ -8,7 +8,7 @@ import Header from '../Header/Header';
 import io from 'socket.io-client';
 import Input from './Input';
 // import SelectRooms from "../components/SelectRooms"
-const socket = io('http://localhost:8000');
+const socket = io('http://localhost:8001');
 // const mapDispatchToProps = dispatch => ( bindActionCreators({objmsg}, dispatch) );
 
 
@@ -38,8 +38,7 @@ export default class Chat extends Component {
 
     render() {
         return (
-        <div className='container'>
-            <Header />
+
             <div className="main-chat-wrapper">
             {/* <SelectRooms /> */}
             <div className="App">
@@ -51,8 +50,7 @@ export default class Chat extends Component {
                     })}
                 </div>
                 <div className="type">
-                    <Input/>
-                </div>
+                    <Input socket={socket}/>
                 </div>
                 </div>
             {/* <Footer /> */}

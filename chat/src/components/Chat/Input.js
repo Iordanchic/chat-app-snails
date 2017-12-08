@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 // import {bindActionCreators} from 'redux';
 import {Route, Link} from 'react-router-dom';
 import io from 'socket.io-client';
-const socket = io('http://localhost:8000');
+// const socket = io('http://localhost:8000');``
+
 
 export default class Chat extends Component {
     constructor(props) {
@@ -14,9 +15,10 @@ export default class Chat extends Component {
 
     msgon = (event) =>{
         if(event.key == 'Enter'){
-            socket.emit('msgtochat',this.refs.msg.value);
+            this.props.socket.emit('msgtochat',this.refs.msg.value);
             var b=new Date()
             var c= b.getDate() + '-' + (b.getMonth() + 1) + '-' + b.getFullYear();
+
             // fetch('http://localhost:9001/msgtobd',
             // {
             //     method: "POST",
@@ -33,6 +35,7 @@ export default class Chat extends Component {
             //     }).then(function(data) {
             //         console.log('Created Gist:');
             //     });
+
             this.refs.msg.value="";
         }
     };
