@@ -24,13 +24,15 @@ class App extends Component {
 
   render() {
     return (
-      // <Header />
-      <MainLayout>
-        <Switch>
-          <Route path='/login' component={Login} />
-          <Route path='/chat' component={Chat} />
-        </Switch>
-      </MainLayout>
+
+        <div className="container">
+            <MainLayout>
+                <Header />
+                <Switch>
+                    <Route path='/login' component={Login} />
+                </Switch>
+            </MainLayout>
+        </div>
     );
   }
 }
