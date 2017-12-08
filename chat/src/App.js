@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import MainLayout from './components/MainLayout';
 import Login from './components/Login/Login'
-// import Header from "./components/Header/Header";
+import Header from "./components/Header/Header";
 import Chat from "./components/Chat/Chat";
 
 class App extends Component {
