@@ -6,6 +6,7 @@ import Login from './components/Login/Login'
 import Header from "./components/Header/Header";
 import Chat from "./components/Chat/Chat";
 import Footer from "./components/Footer/Footer";
+import Profile from "./components/Profile/Profile";
 import SelectRooms from "./components/SelectRooms/SelectRooms";
 
 
@@ -30,10 +31,10 @@ class App extends Component {
         <div className="container">
             <MainLayout>
                 <Header />
-                <SelectRooms />
                 <Switch>
                     <Route path='/login' component={Login} />
                     <Route path='/chat' component={Chat}/>
+                    <Route path='/profile' component={Profile}/>
                 </Switch>
                 <Footer />
             </MainLayout>

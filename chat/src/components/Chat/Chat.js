@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import {connect} from 'react-redux';
-import Header from '../Header/Header';
+import SelectRooms from '../SelectRooms/SelectRooms';
+import './_Chat.css';
 // import Footer from '../components/Footer';
 // import {bindActionCreators} from 'redux';
 // import {Route, Link} from 'react-router-dom';
@@ -39,20 +40,32 @@ export default class Chat extends Component {
         return (
 
             <div className="main-chat-wrapper">
-            {/* <SelectRooms /> */}
-            <div className="App">
-                <div id="Allmsg">
-                    {this.state.msgs.map((item, index)=>{
-                        return <div key={index}className="OneMsg"><div className="LogoUser"></div><div className="Msg">
-                        <p className="UserName">User</p><p>at</p><p className="Data">{this.state.date[index]}</p><hr/>
-                        <p className="Text">{item}</p></div></div>
-                    })}
+            <div className="row">
+                <SelectRooms />
+                <div className="App col-9">
+                    <div id="Allmsg">
+                        {this.state.msgs.map((item, index)=>{
+                            return <div key={index}className="OneMsg row">
+                                <div className="LogoUser col-1"></div>
+                                <div className="col-11">
+                                    <div className="Msg row">
+                                        <p className="UserName col-9">User</p>
+                                        <div className="data-info col-3">
+                                            <p className='data-written'>written on  </p>
+                                            <p className="Data">  {this.state.date[index]}</p>
+                                        </div>
+                                        <hr/>
+                                        <p className="Text">{item}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        })}
+                    </div>
+                    <div className="chat-input">
+                        <Input socket={socket}/>
+                    </div>
                 </div>
-                <div className="type">
-                    <Input socket={socket}/>
-                </div>
-                </div>
-            {/* <Footer /> */}
+            </div>
 
             </div>
         )
