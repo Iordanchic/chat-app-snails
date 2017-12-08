@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import MainLayout from './components/MainLayout';
 import Login from './components/Login/Login'
-// import Header from "./components/Header/Header";
+import Header from "./components/Header/Header";
 import Chat from "./components/Chat/Chat";
+import Footer from "./components/Footer/Footer";
+import SelectRooms from "./components/SelectRooms/SelectRooms";
 
 class App extends Component {
 
@@ -28,9 +29,12 @@ class App extends Component {
         <div className="container">
             <MainLayout>
                 <Header />
+                <SelectRooms />
                 <Switch>
                     <Route path='/login' component={Login} />
+                    <Route path='/chat' component={Chat}/>
                 </Switch>
+                <Footer />
             </MainLayout>
         </div>
     );
