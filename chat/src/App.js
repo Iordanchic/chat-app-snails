@@ -6,6 +6,9 @@ import MainLayout from './components/MainLayout';
 import Login from './components/Login/Login'
 // import Header from "./components/Header/Header";
 import Chat from "./components/Chat/Chat";
+import Header from './components/Header/Header';
+
+
 
 class App extends Component {
 

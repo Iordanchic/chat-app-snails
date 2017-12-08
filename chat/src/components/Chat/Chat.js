@@ -11,7 +11,6 @@ import Input from './Input';
 const socket = io('http://localhost:8000');
 // const mapDispatchToProps = dispatch => ( bindActionCreators({objmsg}, dispatch) );
 
-
 // @connect(null, mapDispatchToProps)
 export default class Chat extends Component {
     constructor(props) {
