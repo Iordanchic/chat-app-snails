@@ -21,15 +21,14 @@ var msgs = mongoose.Schema({
     msg: String,
     author: String
 });
-// mongoose.Promise = global.Promise;
+var users = mongoose.Schema({
+     local:{
+        //  email:String,
+    }
+})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//  connect.on("error", console.error.bind(console, "connection error"));
-//  connect.once("open", function(callback) {
-//      console.log("Connection succeeded.");
-//  });
 
 app.post('/msgtobd', function(req,res){
     console.log(req.body);
@@ -39,7 +38,20 @@ app.post('/msgtobd', function(req,res){
 
 io.on('connection', (client) => {
     var msg=mongoose.model('msgs', msgs);
+    var userinfo = mongoose.model('users',users)
     console.log('client conekt')
+    client.on('getlogin',(objuser)=>{
+        // var userinfo = new userinfo1(objuser);
+        userinfo.find({},function(err,res){
+            if (err) throw err;
+            res.map((item, index)=>{
+                if(item.local.email==objuser.email){
+                    client.emit('getlogin',(item.local))
+                }
+            })
+        })
+    });
+    // client.emit('getlogin',userinfo);
 
     // client.emit('beginchat',objoldmsg);
     client.on('msgtochat',(objmsg)=>{
