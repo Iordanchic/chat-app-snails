@@ -23,7 +23,8 @@ export default class Chat extends Component {
             author:[]
         }
     }
-    componentWillMount(){
+
+    componentDidMount(){
         socket.on('beginchat', (objoldmsg)=>{
             this.setState({
                 date:[...this.state.date, objoldmsg.date],
@@ -31,9 +32,11 @@ export default class Chat extends Component {
                 author:[...this.state.author, objoldmsg.author]
             })
         })
-    };
+        socket.emit('getlogin',({email:"vowar"}))
+        socket.on('getlogin', (objlogin)=>{
+            this.props.getUserInfo(objlogin)
+        })
 
-    componentDidMount(){
         socket.on('msgfromchat', (objmsg) => {
             this.setState({
                 date:[...this.state.date, objmsg.date],

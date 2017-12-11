@@ -10,6 +10,7 @@ export default class Profile extends Component {
 
 
     render() {
+        console.log(this.props.getUserInfo)
         return (
             <div className='container'>
                 <div className="profile-wrapper row">
