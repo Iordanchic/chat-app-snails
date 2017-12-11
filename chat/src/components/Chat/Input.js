@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 // import io from 'socket.io-client';
 // const socket = io('http://localhost:8000');``
 
+
 export default class Chat extends Component {
     constructor(props) {
         super(props);
@@ -44,12 +45,12 @@ export default class Chat extends Component {
             //     .then(data =>{console.log('Created Gist:' + data)});
             this.refs.msg.value="";
         }
-    }
+    };
 
     render() {
         return (
             <div className="type">
-                <input type="text" className="msg" ref="msg" defaultValue="" onKeyPress={this.msgon}/>
+                <input type="text" className="msg" ref="msg" defaultValue=''  onKeyPress={this.msgon}/>
             </div>
         )
     }

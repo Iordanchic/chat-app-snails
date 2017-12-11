@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import {connect} from 'react-redux';
 import Messeg from './Messege';
+import SelectRooms from '../SelectRooms/SelectRooms';
+import './_Chat.css';
 // import Footer from '../components/Footer';
 // import {bindActionCreators} from 'redux';
 // import {Route, Link} from 'react-router-dom';
@@ -8,9 +10,8 @@ import Messeg from './Messege';
 import io from 'socket.io-client';
 import Input from './Input';
 // import SelectRooms from "../components/SelectRooms"
-const socket = io('http://localhost:8000');
+const socket = io('http://localhost:8001');
 // const mapDispatchToProps = dispatch => ( bindActionCreators({objmsg}, dispatch) );
-
 
 // @connect(null, mapDispatchToProps)
 export default class Chat extends Component {
@@ -45,26 +46,21 @@ export default class Chat extends Component {
 
     render() {
         return (
-        <div className='container'>
-            {/* <Header /> */}
             <div className="main-chat-wrapper">
-            {/* <SelectRooms /> */}
-            <div className="App">
-                <div id="Allmsg">
-                    {this.state.msgs.map((item,index) => {return <Messeg msgs={item} index={index} date={this.state.date[index]}/>})}
-                    {/* {this.state.msgs.map((item, index)=>{
-                        return <div key={index}className="OneMsg"><div className="LogoUser"></div><div className="Msg">
-                        <p className="UserName">User</p><p>at</p><p className="Data">{this.state.date[index]}</p><hr/>
-                        <p className="Text">{item}</p></div></div>
-                    })} */}
+                <div className="row">
+                    <SelectRooms />
+                    <div className="App col-9">
+                        <div id="Allmsg">
+                            {this.state.msgs.map((item,index) => {
+                                console.log(item);
+                                return <Messeg msgs={item} index={index} date={this.state.date[index]}/>
+                                })}
+                        </div>
+                        <div className="chat-input">
+                            <Input socket={socket}/>
+                        </div>
+                    </div>
                 </div>
-                <div className="type">
-                    <Input socket={socket}/>
-                </div>
-                </div>
-                </div>
-            {/* <Footer /> */}
-
             </div>
         )
     }

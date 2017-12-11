@@ -1,0 +1,46 @@
+.top-selector{
+    margin: 30px 0;
+}
+.type-select{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #363636;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+}
+.select-img i{
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    display: block;
+    color: #808080;
+}
+.select-img i:hover, .select-img i:focus{
+    color: #00ffff;
+}
+.room-select{
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #ff6c00;
+    color: #ffffff;
+    line-height: 90px;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 20px;
+    border: 4px ridge black;
+    transition: 1s linear;
+
+}
+.room-select:hover{
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    text-decoration: none;
+}
+

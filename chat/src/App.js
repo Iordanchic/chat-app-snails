@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import MainLayout from './components/MainLayout';
 import Login from './components/Login/Login'
 import Header from "./components/Header/Header";
 import Chat from "./components/Chat/Chat";
+import Footer from "./components/Footer/Footer";
+import Profile from "./components/Profile/Profile";
+import SelectRooms from "./components/SelectRooms/SelectRooms";
+
 
 class App extends Component {
 
@@ -24,13 +27,18 @@ class App extends Component {
 
   render() {
     return (
-      <MainLayout>
-        <Header />
-        <Switch>
-          <Route path='/login' component={Login} />
-          <Route path='/chat' component={Chat} />
-        </Switch>
-      </MainLayout>
+
+        <div className="container">
+            <MainLayout>
+                <Header />
+                <Switch>
+                    <Route path='/login' component={Login} />
+                    <Route path='/chat' component={Chat}/>
+                    <Route path='/profile' component={Profile}/>
+                </Switch>
+                <Footer />
+            </MainLayout>
+        </div>
     );
   }
 }

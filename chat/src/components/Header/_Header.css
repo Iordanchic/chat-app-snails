@@ -3,16 +3,17 @@ header {
     height: 91px;
 }
 .header {
-    padding-top: 18px;
-    padding-left: 43px;
-    padding-right: 26px;
+    padding-top: 14px;
+    /*padding-left: 43px;*/
+    /*padding-right: 26px;*/
 }
 
 .logo{
     display: block;
     width: 80px;
     height: 58px;
-    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .profile-img{
@@ -23,10 +24,13 @@ header {
     margin-bottom: 8px;
 }
 .my-profile{
-
     text-decoration: none;
     margin-left: -10px;
     font-size: 13px;
     font-family: 'Roboto', sans-serif;
     color: #00ffff;
+}
+.my-profile:hover{
+    text-decoration: none;
+    color: #00c3c3;
 }

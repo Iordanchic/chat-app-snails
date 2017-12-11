@@ -1,0 +1,48 @@
+.main-chat-wrapper{
+    background: #121d2c;
+}
+/*.App{*/
+    /*padding: 20px;*/
+/*}*/
+#Allmsg{
+    width: 100%;
+    /*height: 93%;*/
+    background: #e1e1e1;
+    padding: 20px;
+    height: 600px;
+    overflow-y: scroll;
+}
+.OneMsg{
+    -ms-text-align-last: left;
+    text-align-last: left;
+    padding: 5px;
+}
+.Msg{
+    background: #ffffff;
+    padding: 10px;
+}
+.LogoUser{
+    background: #777e81;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    flex: 0;
+}
+.msg{
+    background: #fff;
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+.UserName{
+    color: #ff6c00;
+}
+.data-written, .Data{
+    display: inline-block;
+    line-height: 0;
+    color: #adb5b8;
+    font-size: 13px;
+
+}
