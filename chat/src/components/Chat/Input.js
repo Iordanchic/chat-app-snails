@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
-import {Route, Link} from 'react-router-dom';
-import io from 'socket.io-client';
+// import {Route, Link} from 'react-router-dom';
+// import io from 'socket.io-client';
 // const socket = io('http://localhost:8000');``
 
 
@@ -14,28 +14,35 @@ export default class Chat extends Component {
     }
 
     msgon = (event) =>{
-        if(event.key == 'Enter'){
-            this.props.socket.emit('msgtochat',this.refs.msg.value);
+        if(event.key === 'Enter'){
+            var objmsg={
+                date:"",
+                msg:"",
+                author:""
+            }
             var b=new Date()
-            var c= b.getDate() + '-' + (b.getMonth() + 1) + '-' + b.getFullYear();
-
-            // fetch('http://localhost:9001/msgtobd',
+            objmsg.date= b.getDate() + '-' + (b.getMonth() + 1) + '-' + b.getFullYear();
+            objmsg.msg = this.refs.msg.value;
+            this.props.socket.emit('msgtochat', objmsg);
+            // fetch("http://localhost:3001/msgtobd",
             // {
             //     method: "POST",
+            //     mode: 'no-cors',
+            //     credentials: 'same-origin',
             //     headers: {
+            //         // 'Access-Control-Allow-Origin':'http://localhost:3000',
             //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json',
+            //         'Content-Type': 'application/json'
             //       },
             //     body:JSON.stringify({
-            //         msg:this.refs.msg.value,
-            //         date:c
-            //     })
-            // }).then(function(res) {
-            //         return res.json();
-            //     }).then(function(data) {
-            //         console.log('Created Gist:');
-            //     });
-
+            //         body:{
+            //             msg:this.refs.msg.value, 
+            //             date:c
+            //         }
+            //     }),
+            // })
+            //     .then(res => res.json()) 
+            //     .then(data =>{console.log('Created Gist:' + data)});
             this.refs.msg.value="";
         }
     };

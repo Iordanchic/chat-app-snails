@@ -11,6 +11,28 @@ import SelectRooms from "./components/SelectRooms/SelectRooms";
 
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      user:{
+        login:"",
+        email: "",
+        password:"",
+        img:"",
+      }
+    }
+  }
+
+  getUserInfo = (objuser) => {
+    this.setState({
+      user:{
+        login:objuser.login,
+        email:objuser.email,
+        password:objuser.password,
+        img:objuser.img,
+    }})
+    console.log(this.state.user)
+  }
 
   getInfoFromServer = () => {
 
@@ -26,15 +48,18 @@ class App extends Component {
 
 
   render() {
+    // const WrappedHome = function(props) {
+    //   return (<Chat {...props} getUserInfo={this.getUserInfo} />);
+    // };
     return (
 
         <div className="container">
             <MainLayout>
-                <Header />
+                <Header/>
                 <Switch>
                     <Route path='/login' component={Login} />
-                    <Route path='/chat' component={Chat}/>
-                    <Route path='/profile' component={Profile}/>
+                    <Route path='/chat' render={() => <Chat getUserInfo={this.getUserInfo}/>} />
+                    <Route path='/profile' render={() => <Profile getUserInfo={this.state.user}/>}/>
                 </Switch>
                 <Footer />
             </MainLayout>
