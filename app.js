@@ -17,21 +17,22 @@ mongoose.connect(url, {useMongoClient:true}, function (err) {
 
 var connect = mongoose.connection;
 var msgs = mongoose.Schema({
-    date: String,
-    msg: String,
-    author: String
+    grup:String,
+    msgs:{
+        msg: String,
+        author: String,
+        date: String,
+    },
 });
 var users = mongoose.Schema({
-     local:{
-        //  email:String,
-    }
-})
+     local:{}
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/msgtobd', function(req,res){
-    console.log(req.body);
+    // console.log(req.body);
     var body = req.body;
     res.json({'lol-bella':body.lol})
 })
@@ -40,35 +41,44 @@ io.on('connection', (client) => {
     var msg=mongoose.model('msgs', msgs);
     var userinfo = mongoose.model('users',users)
     console.log('client conekt')
+    client.on('beginchat',(grup)=>{
+        msg.findOne({grup:grup},function(err,res){
+            var body=JSON.parse(JSON.stringify(res))
+            if (err) throw err;
+            console.log(body)
+            client.emit('beginchat',(body));
+        })
+    })
+
+
     client.on('getlogin',(objuser)=>{
-        // var userinfo = new userinfo1(objuser);
         userinfo.find({},function(err,res){
             if (err) throw err;
             res.map((item, index)=>{
-                if(item.local.email==objuser.email){
-                    client.emit('getlogin',(item.local))
+                if(item.email==objuser.email){
+                    client.emit('getlogin',(item))
                 }
             })
         })
     });
-    // client.emit('getlogin',userinfo);
-
-    // client.emit('beginchat',objoldmsg);
     client.on('msgtochat',(objmsg)=>{
-        
-        var newmsgs = new msg(objmsg)
-        newmsgs.save(function(err) {
+        msg.findOne({grup:objmsg.grup.toString()},function(err,res){
             if (err) throw err;
-                console.log('Book successfully saved.');
+            var body=JSON.parse(JSON.stringify(res));
+            body.msgs.push(objmsg.msgs)
+            console.log(body)
+            msg.update({ grup:body.grup.toString()}, body, function(err) {
+                if (err) throw err;
+                console.log(body.grup+' successfully saved.');
             });
-        client.emit('msgfromchat',newmsgs);
-        client.broadcast.emit('msgfromchat',newmsgs)
+        });
+        client.emit('msgfromchat',objmsg);
+        client.broadcast.emit('msgfromchat',objmsg)
     });
     client.on('disconnect', function(){
         console.log('client disconect')
     })
 });
-
 
 const port = 8001;
 io.listen(port);

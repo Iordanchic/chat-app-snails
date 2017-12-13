@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import {connect} from 'react-redux';
-import Messeg from './Messege';
+import Messege from './Messege';
 import SelectRooms from '../SelectRooms/SelectRooms';
 import './_Chat.css';
+import { BrowserRouter } from 'react-router-dom'
 // import Footer from '../components/Footer';
 // import {bindActionCreators} from 'redux';
 // import {Route, Link} from 'react-router-dom';
@@ -18,49 +18,57 @@ export default class Chat extends Component {
     constructor(props) {
         super(props);
         this.state={
-            date:[],
+            grup:this.props.match.params.id,
             msgs:[],
-            author:[]
+            user:"user",
+            userongrup:"",
+            render:false
         }
     }
 
-    componentDidMount(){
+    getmsgs = () =>{
+        socket.emit('beginchat',(this.state.grup))
         socket.on('beginchat', (objoldmsg)=>{
+            if(objoldmsg != null){
             this.setState({
-                date:[...this.state.date, objoldmsg.date],
-                msgs:[...this.state.msgs, objoldmsg.msg],
-                author:[...this.state.author, objoldmsg.author]
+                msgs:objoldmsg.msgs
             })
+        }else{
+            console.log('no grup')
+        }
         })
-        socket.emit('getlogin',({email:"vowar"}))
+    }
+
+    componentDidMount(){
+        this.getmsgs();
+
+        socket.emit('getlogin',({email:"2"}))
+
         socket.on('getlogin', (objlogin)=>{
             this.props.getUserInfo(objlogin)
         })
 
         socket.on('msgfromchat', (objmsg) => {
-            this.setState({
-                date:[...this.state.date, objmsg.date],
-                msgs:[...this.state.msgs, objmsg.msg],
-                author:[...this.state.author, objmsg.author]
-            })
-                // this.props.objmsg(this.state);
-        });
+            console.log(objmsg.msgs)
+            this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
+        })
     }
 
     render() {
+        console.log(this.state)
         return (
-            <div className="main-chat-wrapper">
+            <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row">
-                    <SelectRooms />
+                    <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div id="Allmsg">
-                            {this.state.msgs.map((item,index) => {
-                                console.log(item);
-                                return <Messeg msgs={item} index={index} date={this.state.date[index]}/>
+                            {this.state.msgs.length == 0?<p>loading</p>:
+                                this.state.msgs.map((item,index) => {
+                                    return <Messege item={item} key={index} />
                                 })}
                         </div>
                         <div className="chat-input">
-                            <Input socket={socket}/>
+                            <Input user={this.state.user} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>
