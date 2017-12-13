@@ -30,11 +30,6 @@ class Profile extends Component {
             .then(res => res.json())
             .then(res => {
                 console.log("res", res);
-                // if(res.success === false) {
-                //     this.setState({access: false})
-                // } else {
-                //     this.setState({access: true, name: res.name})
-                // }
 
             })
             .catch(err => console.log(err));
