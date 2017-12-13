@@ -1,4 +1,7 @@
-const express = require('express')
+const express = require('express');
+var _ = require("lodash");
+var passport = require("passport");
+
 const app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -34,7 +37,11 @@ app.post('/msgtobd', function(req,res){
     console.log(req.body);
     var body = req.body;
     res.json({'lol-bella':body.lol})
-})
+});
+
+
+
+
 
 io.on('connection', (client) => {
     var msg=mongoose.model('msgs', msgs);
