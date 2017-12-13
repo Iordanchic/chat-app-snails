@@ -11,16 +11,14 @@ export default class Footer extends Component {
 
     render() {
         return (
-            <div className="">
-                <footer className='footer '>
-                    <div className="row">
-                        <div className="col-12">
-                            Scrumi.org
-                        </div>
+            <footer className='footer '>
+                <div className="row">
+                    <div className="col-12">
+                        Scrumi.org
                     </div>
+                </div>
+            </footer>
 
-                </footer>
-            </div>
         )
     }
 }
