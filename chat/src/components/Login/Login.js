@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './Login.css';
 import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
     }
@@ -21,9 +22,16 @@ export default class Login extends Component {
         fetch(`/authenticate`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
         .then(res => res.json())
         .then(res => {
+            if(res.success === true){
+                let str = JSON.stringify(res);
+                localStorage.setItem("user_token", res.token)
+                this.props.history.push('/chat/main')
+            }
+            else if(res.success === false){
+                return
+            }
             console.log("res", res);
-            let str = JSON.stringify(res);
-            localStorage.setItem("user_token", res.token)
+
 
         })
         .catch(res => console.log('error'));
@@ -36,14 +44,14 @@ export default class Login extends Component {
                 <div className="row bg-color">
                     <div className="login-wrap">
                         <div className="login-form">
-                            <h1> С возвращением </h1>
-                            <label>Логин</label>
+                            <h1> Welcome back</h1>
+                            <label>Login:</label>
                             <input ref="login" type="text" />
-                            <label>Пароль</label>
+                            <label>Password:</label>
                             <input ref="pass" type="password" />
-                            <button onClick={this.handleLogin}> ВОЙТИ </button>
+                            <button onClick={this.handleLogin}> Enter </button>
                             <br />
-                            <Link to={"signup"}>Зарегистрироваться </Link>
+                            <Link to={"signup"}>Sign Up </Link>
                             {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
                         </div>
                     </div>
@@ -52,4 +60,4 @@ export default class Login extends Component {
         )
     }
 }
-    
+export default withRouter(Login)
