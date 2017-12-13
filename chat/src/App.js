@@ -31,16 +31,14 @@ class App extends Component {
         password:objuser.password,
         img:objuser.img,
     }})
-    console.log(this.state.user)
+    // console.log(this.state.user)
   }
 
   getInfoFromServer = () => {
-
     // let id = JSON.stringify({ number: 100 });
     // fetch(`/aaa`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: id })
     // .then(res => res.json())
     // .then(res => {
-       
     //     console.log("res", res)
     // })
     // .catch(res => console.log('error'));
@@ -52,13 +50,14 @@ class App extends Component {
     //   return (<Chat {...props} getUserInfo={this.getUserInfo} />);
     // };
     return (
-
         <div className="container">
             <MainLayout>
                 <Header/>
                 <Switch>
                     <Route path='/login' component={Login} />
-                    <Route path='/chat' render={() => <Chat getUserInfo={this.getUserInfo}/>} />
+                    {/* <Route path='/chat' render={() => <Chat getUserInfo={this.getUserInfo}/>} /> */}
+                    <Route path='/chat/:id' component={Chat} />} />
+                    {/* <Route path='/chat/:id' render={() => <Chat getUserInfo={this.getUserInfo}/>} /> */}
                     <Route path='/profile' render={() => <Profile getUserInfo={this.state.user}/>}/>
                 </Switch>
                 <Footer />

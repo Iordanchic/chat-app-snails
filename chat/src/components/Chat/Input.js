@@ -9,40 +9,22 @@ import React, { Component } from 'react';
 export default class Chat extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            msgs:[]}
     }
 
     msgon = (event) =>{
         if(event.key === 'Enter'){
             var objmsg={
-                date:"",
-                msg:"",
-                author:""
+                grup:this.props.grup,
+                msgs:{
+                    date:"",
+                    msg:"",
+                    author:"user"
+                }   
             }
             var b=new Date()
-            objmsg.date= b.getDate() + '-' + (b.getMonth() + 1) + '-' + b.getFullYear();
-            objmsg.msg = this.refs.msg.value;
+            objmsg.msgs.date= b.getDate() + '-' + (b.getMonth() + 1) + '-' + b.getFullYear();
+            objmsg.msgs.msg = this.refs.msg.value;
             this.props.socket.emit('msgtochat', objmsg);
-            // fetch("http://localhost:3001/msgtobd",
-            // {
-            //     method: "POST",
-            //     mode: 'no-cors',
-            //     credentials: 'same-origin',
-            //     headers: {
-            //         // 'Access-Control-Allow-Origin':'http://localhost:3000',
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //       },
-            //     body:JSON.stringify({
-            //         body:{
-            //             msg:this.refs.msg.value, 
-            //             date:c
-            //         }
-            //     }),
-            // })
-            //     .then(res => res.json()) 
-            //     .then(data =>{console.log('Created Gist:' + data)});
             this.refs.msg.value="";
         }
     };

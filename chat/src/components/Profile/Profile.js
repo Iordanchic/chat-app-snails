@@ -7,8 +7,6 @@ export default class Profile extends Component {
         super(props);
     }
 
-
-
     render() {
         console.log(this.props.getUserInfo)
         return (
