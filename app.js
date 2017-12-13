@@ -39,7 +39,12 @@ var msgs = mongoose.Schema({
     },
 });
 var users = mongoose.Schema({
-     local:{}
+    local:{}
+});
+var userschange = mongoose.Schema({
+    name:String,
+    password: String
+
 });
 
 app.use(bodyParser.json());
@@ -60,7 +65,7 @@ app.post('/msgtobd', function(req,res){
 
 io.on('connection', (client) => {
     var msg=mongoose.model('msgs', msgs);
-    var userinfo = mongoose.model('users',users)
+    // var userinfo = mongoose.model('users',users)
     console.log('client conekt')
     client.on('beginchat',(grup)=>{
         msg.findOne({grup:grup},function(err,res){
@@ -73,14 +78,14 @@ io.on('connection', (client) => {
 
 
     client.on('getlogin',(objuser)=>{
-        userinfo.find({},function(err,res){
-            if (err) throw err;
-            res.map((item, index)=>{
-                if(item.email==objuser.email){
-                    client.emit('getlogin',(item))
-                }
-            })
-        })
+        // userinfo.find({},function(err,res){
+        //     if (err) throw err;
+        //     res.map((item, index)=>{
+        //         if(item.email==objuser.email){
+        //             client.emit('getlogin',(item))
+        //         }
+        //     })
+        // })
     });
     client.on('msgtochat',(objmsg)=>{
         msg.findOne({grup:objmsg.grup.toString()},function(err,res){
@@ -117,6 +122,20 @@ app.post('/setup', function(req, res) {
 		res.json({ success: true });
 	});
 });
+// ====================== profile ======================
+app.post('/changeProfile', function(req,res){
+    var body = req.body;
+    console.log(body);
+    var b = {
+        name:body.newname,
+        password: body.newpassword
+    };
+    var usersc=mongoose.model('users', userschange);
+    usersc.update({name:body.oldname.toString()},b,function(err){
+        if (err) throw err;
+    });
+});
+
 // ==================Tokens requests ====================
 let check_token = function(req, res, next) {
 		// check header or url parameters or post parameters for token
@@ -151,13 +170,13 @@ let check_token = function(req, res, next) {
     } 
     // ======Test
     app.post('/test',check_token, function(req, res) {
-        console.log("I AM FROM TEST")
-        console.log(req.body.token)
-        res.json(req.body.token)
+        // console.log("I AM FROM TEST")
+        // console.log(req.body.token)
+        res.json(req.decoded)
     });
     // =====Signup
     app.post('/authenticate', function(req, res) {
-        console.log(req)
+        // console.log(req)
         // find the user
         User.findOne({
             name: req.body.name
@@ -195,6 +214,12 @@ let check_token = function(req, res, next) {
     
         });
     });
+
+
+
+
+
+
 
 const port = 8001;
 io.listen(port);
