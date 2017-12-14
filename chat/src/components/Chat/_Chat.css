@@ -1,15 +1,20 @@
 .main-chat-wrapper{
-    background: #121d2c;
+    background: #0B1A2B;
+    height: calc(100% - 91px);
+    overflow: hidden;
 }
-/*.App{*/
-    /*padding: 20px;*/
-/*}*/
+.main-chat-row{
+    height: 100%;
+}
+.App{
+    height: 100%;
+}
 #Allmsg{
     width: 100%;
-    /*height: 93%;*/
-    background: #e1e1e1;
+    height: 93%;
+    background: #F5F5F6;
     padding: 20px;
-    height: 600px;
+    /*height: 600px;*/
     overflow-y: scroll;
 }
 .OneMsg{
@@ -20,12 +25,30 @@
 .Msg{
     background: #ffffff;
     padding: 10px;
+    position: relative;
+}
+.Msg:before{
+    content: '';
+    clear: both;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 15px 15px 0;
+    border-color: transparent #fff transparent transparent;
+    top: 0px;
+    left: -15px;
+}
+.msg-top{
+    border-bottom: 1px solid #dbdbdb;
+    height: 12px;
+    padding-bottom: 24px;
 }
 .LogoUser{
     background: #777e81;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     flex: 0;
 }
 .msg{
@@ -46,3 +69,9 @@
     font-size: 13px;
 
 }
+.Text{
+    word-wrap: break-word;
+}
+/*.chat-input{*/
+    /*padding: 0;*/
+/*}*/

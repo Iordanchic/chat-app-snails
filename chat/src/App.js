@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import {Route, Switch, Link} from 'react-router-dom';
-import './App.css';
-import MainLayout from './components/MainLayout';
-import Login from './components/Login/Login'
-import Header from "./components/Header/Header";
-import Chat from "./components/Chat/Chat";
-import Footer from "./components/Footer/Footer";
-import Profile from "./components/Profile/Profile";
-import SelectRooms from "./components/SelectRooms/SelectRooms";
+import {Route, Switch} from 'react-router-dom';
 
+import './App.css';
+
+import MainLayout  from './components/MainLayout';
+import Login       from './components/Login/Login'
+import Header      from "./components/Header/Header";
+import Chat        from "./components/Chat/Chat";
+import Footer      from "./components/Footer/Footer";
+import Profile     from "./components/Profile/Profile";
+import SelectRooms from "./components/SelectRooms/SelectRooms";
+import SignUp      from './components/Signup/SignUp';
+
+import Atest from "./components/Atest/Atest"
 
 class App extends Component {
   constructor(props){
@@ -55,12 +59,16 @@ class App extends Component {
                 <Header/>
                 <Switch>
                     <Route path='/login' component={Login} />
+                    <Route path='/signup' component={SignUp} />
                     {/* <Route path='/chat' render={() => <Chat getUserInfo={this.getUserInfo}/>} /> */}
                     <Route path='/chat/:id' component={Chat} />} />
+                    <Route path='/test' component={Atest} />} />
                     {/* <Route path='/chat/:id' render={() => <Chat getUserInfo={this.getUserInfo}/>} /> */}
                     <Route path='/profile' render={() => <Profile getUserInfo={this.state.user}/>}/>
+                    <Route path='/*' render={()=> <h1>404 ERROR</h1>}/>
+
                 </Switch>
-                <Footer />
+                {/*<Footer />*/}
             </MainLayout>
         </div>
     );

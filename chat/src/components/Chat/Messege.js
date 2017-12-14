@@ -9,19 +9,28 @@ export default class Messege extends Component {
     render() {
         // console.log(this.props.item["msgs"]);
         return (
-                <div className="OneMsg row">
-                    <div className="LogoUser col-1"></div>
-                        <div className="col-11">
-                            <div className="Msg row">
-                                <p className="UserName col-9">{this.props.item.user}</p>
-                                <div className="data-info col-3">
-                                    <p className='data-written'>written on  </p>
-                                    <p className="Data"> {this.props.item.date}</p>
-                                </div>
-                                <hr/>
-                            <p className="Text">{this.props.item.msg}</p>
-                        </div>
-                    </div>
+                <div className="OneMsg">
+                   <div className="row ">
+                       <div className="col-1"><div className="LogoUser"></div></div>
+                       <div className="col-11">
+                           <div className="Msg">
+                              <div className="row">
+                                 <div className="col-12">
+                                     <div className="msg-top">
+                                         <div className="row">
+                                             <p className="UserName col-9">{this.props.item.user} Vova</p>
+                                             <div className="data-info col-3">
+                                                 <p className='data-written'>written on  </p> <p className="Data"> {this.props.item.date}</p>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                 </div>
+                                  <p className="Text col-12">{this.props.item.msg}</p>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
                 </div>
         )
     }

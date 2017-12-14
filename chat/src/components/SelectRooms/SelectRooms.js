@@ -33,9 +33,7 @@ export default class SelectRooms extends React.Component {
                             </div>
                         </div>
                         <div className="rooms-list col-12">
-                            {this.props.grups<1?<p>loading</p>:this.props.grups.map((item,index)=>{
-                                return <Link to={'/chat/'+item.grup} key={index} className="room-select" onClick={this.pushHistory}>{item.grup}</Link>
-                                })}
+                            {this.props.grups<1?<p>loading</p>:this.props.grups.map((item,index)=>{return <Link to={'/chat/'+item.grup} key={index} className="room-select" onClick={this.pushHistory}>{item.grup}</Link>})}
                             {/* <Link to={'/chat'} className="room-select">Room 1</Link>
                             <Link to={'/chat'} className="room-select">Room 2</Link>
                             <Link to={'/chat'} className="room-select">Room 3</Link>

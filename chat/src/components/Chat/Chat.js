@@ -68,8 +68,8 @@ export default class Chat extends Component {
         // console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
-                <div className="row">
-                    <SelectRooms roomYouNow={this.state.grup} chanInGrup={this.chanInGrup} usersOnGrup={this.state.users} user={this.state.user} grups={this.state.allgrup} history={this.props.match.params}/>
+                <div className="row main-chat-row">
+                    <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div id="Allmsg">
                             {this.state.msgs.length == 0?<p>loading</p>:
