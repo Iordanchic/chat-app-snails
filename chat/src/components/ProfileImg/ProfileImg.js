@@ -3,9 +3,7 @@ import {Link} from 'react-router-dom';
 import './_Profile.css';
 import { withRouter } from 'react-router-dom';
 
-
-
-class Profile extends Component {
+class ProfileImg extends Component {
     constructor(props) {
         super(props);
         let data = JSON.stringify({token: localStorage.getItem("user_token")});
@@ -16,15 +14,14 @@ class Profile extends Component {
                 if(res.success === false) {
                     this.setState({access: false})
                 } else {
-                    this.setState({access: true, name: res.name, img: res.img})
+                    this.setState({access: true, name: res.name})
                 }
 
             })
             .catch(err => console.log(err));
         this.state = {
             access: null,
-            name: null,
-            img: null
+            name: null
         }
     }
     handleSave = () =>{
@@ -56,8 +53,7 @@ class Profile extends Component {
 
 
     render() {
-        console.log(this.state.img)
-        console.log(''+this.state.img+'')
+        console.log(this.props.getUserInfo)
         return (
             <div className='profile-container'>
                 {this.state.access === null? <h1> Loading </h1> : this.state.access === true?
@@ -74,10 +70,10 @@ class Profile extends Component {
                             <div className="profile-main col-8">
                                 <div className="row">
                                     <div className="profile-img-edit-block col-4">
-                                        <div  className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
+                                        <div className="profile-img-edit-pic"></div>
                                         <div className="profile-img-buttons">
-                                        <button className="profile-img-del">Del</button>
-                                        <button className="profile-img-edit">Edit</button>
+                                            <button className="profile-img-del">Del</button>
+                                            <button className="profile-img-edit">Edit</button>
                                         </div>
                                     </div>
                                     <div className="profile-info-wrapper col-7">
@@ -86,7 +82,7 @@ class Profile extends Component {
                                         {/*<label htmlFor="email-edit">Email:</label>*/}
                                         {/*<input className="profile-info email-edit" name='email-edit'/>*/}
                                         <label htmlFor="password-edit">New Password:</label>
-                                        <input type='password' ref='password' className="profile-info password-edit" name='password-edit' placeholder='Your new password' required/>
+                                        <input type='password' ref='password' className="profile-info password-edit" name='password-edit' defaultValue='12345' required/>
                                     </div>
                                     <div className="profile-btns-wrapper col-12">
                                         <button className="profile-del"  onClick={this.handleDelete}>Delete profile</button>

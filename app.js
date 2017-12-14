@@ -102,18 +102,24 @@ io.on('connection', (client) => {
         client.broadcast.emit('msgfromchat',objmsg)
     });
     client.on('disconnect', function(){
-        console.log('client disconect')
+        console.log('client disconnect')
     })
 });
-
+// choose img randomly
+imgRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+let userImgs = ['icon1','icon2', 'icon3', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'];
 // ========Signup New User
 app.post('/setup', function(req, res) {
-	console.log(req.body)
+    let randomNum = imgRandom(0, 16);
+	// console.log(randomNum)
 	// create a sample user
 	var nick = new User({ 
 		name: req.body.name, 
 		password: req.body.password,
-		admin: true 
+		admin: true,
+        userImg: userImgs[randomNum]
 	});
 	nick.save(function(err) {
 		if (err) throw err;
@@ -172,6 +178,7 @@ let check_token = function(req, res, next) {
     app.post('/test',check_token, function(req, res) {
         // console.log("I AM FROM TEST")
         // console.log(req.body.token)
+        console.log(req.decoded)
         res.json(req.decoded)
     });
     // =====Signup
@@ -198,6 +205,7 @@ let check_token = function(req, res, next) {
                     var payload = {
                         admin: user.admin,
                         name: user.name,
+                        img: user.userImg
                     }
                     var token = jwt.sign(payload, app.get('superSecret'), {
                         expiresIn: 86400 // expires in 24 hours
