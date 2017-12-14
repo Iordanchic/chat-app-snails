@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Messege from './Messege';
 import SelectRooms from '../SelectRooms/SelectRooms';
 import './_Chat.css';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, withRouter} from 'react-router-dom'
 // import Footer from '../components/Footer';
 // import {bindActionCreators} from 'redux';
 // import {Route, Link} from 'react-router-dom';
@@ -22,7 +22,7 @@ export default class Chat extends Component {
             msgs:[],
             user:"user",
             userongrup:"",
-            render:false
+            allgrup:[{grup:"main"},{grup:"main2"}]
         }
     }
 
@@ -37,6 +37,8 @@ export default class Chat extends Component {
             console.log('no grup')
         }
         })
+        // socket.emit('getallgrupuser',(this.state.user))
+        // socket.on('getallgrupuser',)
     }
 
     componentDidMount(){
@@ -50,22 +52,31 @@ export default class Chat extends Component {
 
         socket.on('msgfromchat', (objmsg) => {
             console.log(objmsg.msgs)
-            this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
+            if(objmsg.grup == this.state.grup){
+                this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
+            }
         })
+    }
+    chanInGrup = (grup) =>{
+        this.setState({
+            grup:grup
+        })
+        this.forceUpdate()
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row">
-                    <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
+                    <SelectRooms roomYouNow={this.state.grup} chanInGrup={this.chanInGrup} usersOnGrup={this.state.users} user={this.state.user} grups={this.state.allgrup} history={this.props.match.params}/>
                     <div className="App col-9">
                         <div id="Allmsg">
                             {this.state.msgs.length == 0?<p>loading</p>:
                                 this.state.msgs.map((item,index) => {
                                     return <Messege item={item} key={index} />
-                                })}
+                                })
+                            }
                         </div>
                         <div className="chat-input">
                             <Input user={this.state.user} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
