@@ -122,8 +122,8 @@ let check_token = function(req, res, next) {
 		// check header or url parameters or post parameters for token
 		var token = req.body.token || req.param('token') || req.headers['x-access-token'];
         // decode token
-        console.log("TOOOOKEN")
-        console.log(token)
+        // console.log("TOOOOKEN")
+        // console.log(token)
 		if (token) {
 	
 			// verifies secret and checks exp
@@ -151,9 +151,9 @@ let check_token = function(req, res, next) {
     } 
     // ======Test
     app.post('/test',check_token, function(req, res) {
-        console.log("I AM FROM TEST")
-        console.log(req.body.token)
-        res.json(req.body.token)
+        console.log("I AM DECODED")
+        console.log(req.decoded)
+        res.json(req.decoded)
     });
     // =====Signup
     app.post('/authenticate', function(req, res) {
