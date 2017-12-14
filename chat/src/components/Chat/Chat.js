@@ -73,9 +73,8 @@ export default class Chat extends Component {
     render() {
         console.log(this.state)
         return (
-            <div>
-            {this.state.access === null? <h1> Loading </h1> : this.state.access === true? <div key={this.state.render} className="main-chat-wrapper">
-                <div className="row">
+            <div key={this.state.render} className="main-chat-wrapper">
+                <div className="row main-chat-row">
                     <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div id="Allmsg">
@@ -89,8 +88,8 @@ export default class Chat extends Component {
                         </div>
                     </div>
                 </div>
-            </div> : <h1> Access DENIED </h1>}
             </div>
+            // </div>
             
         )
     }

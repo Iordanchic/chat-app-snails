@@ -1,3 +1,7 @@
+.profile-container{
+    /*height: 100%;*/
+    height: calc(100% - 91px);
+}
 .profile-wrapper button{
     outline: none;
 }
@@ -5,14 +9,18 @@
     outline: none;
 }
 .profile-wrapper {
-    background: #e0e0e0;
-    padding: 15px;
+    background: #F5F5F6;
+    padding: 30px;
+    height: 100%;
+}
+.profile-wrapper .row{
+    /*height: 100%;*/
 }
 .profile-btn {
     height: 40px;
     border-radius: 5px;
     margin-top: 10px;
-    background: #121d2c;
+    background: #0B1A2B;
     color: #ffffff;
     cursor: pointer;
 }
@@ -27,7 +35,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: #121d2c;
+    background: #0B1A2B;
 }
 .profile-img-buttons {
     margin-top: 30px;
@@ -38,7 +46,7 @@
     border-radius: 5px;
     outline: none;
     color: #ffffff;
-    background: #121d2c;
+    background: #0B1A2B;
     cursor: pointer;
 }
 .profile-img-buttons button:hover{
@@ -49,7 +57,7 @@
     width: 100%;
 }
 .profile-info-wrapper label{
-    color: #121d2c;
+    color: #0B1A2B;
 
 }
 .profile-info-wrapper input{
@@ -67,14 +75,17 @@
     flex-direction: row;
     justify-content: space-between;
 }
-.profile-btns-wrapper button {
+.profile-btns-wrapper button, .profile-btns-wrapper a {
     width: 30%;
     height: 40px;
     border-radius: 5px;
-    background: #121d2c;
+    background: #0B1A2B;
     color: #ffffff;
     cursor: pointer;
+    text-decoration: none;
+    line-height: 40px;
+    text-align: center;
 }
-.profile-btns-wrapper button:hover{
+.profile-btns-wrapper button:hover, .profile-btns-wrapper a:hover{
      opacity: 0.8;
  }

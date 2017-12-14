@@ -1,5 +1,5 @@
 header {
-    background: #121d2c;
+    background: #0B1A2B;
     height: 91px;
 }
 .header {
@@ -20,7 +20,7 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #e1e1e1;
+    background: #F5F5F6;
     margin-bottom: 8px;
 }
 .my-profile{
