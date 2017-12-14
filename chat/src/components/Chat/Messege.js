@@ -10,7 +10,7 @@ export default class Messege extends Component {
         // console.log(this.props.item["msgs"]);
         return (
                 <div className="OneMsg">
-                   <div className="row justify-content-between">
+                   <div className="row ">
                        <div className="col-1"><div className="LogoUser"></div></div>
                        <div className="col-11">
                            <div className="Msg">

@@ -68,7 +68,7 @@ class App extends Component {
                     <Route path='/*' render={()=> <h1>404 ERROR</h1>}/>
 
                 </Switch>
-                <Footer />
+                {/*<Footer />*/}
             </MainLayout>
         </div>
     );

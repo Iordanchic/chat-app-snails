@@ -1,5 +1,9 @@
+.left-bar-wrapper, .rooms, .rooms > .row{
+    height: 100%;
+}
 .top-selector{
-    margin: 30px 0;
+    margin: 0 auto;
+    height: 155px;
 }
 .type-select{
     width: 50px;
@@ -21,6 +25,11 @@
 .select-img i:hover, .select-img i:focus{
     color: #00ffff;
 }
+.rooms-list{
+    max-height: 100%;
+    overflow-y: scroll;
+    height: calc(100% - 155px);
+}
 .room-select{
     cursor: pointer;
     display: block;
@@ -32,11 +41,11 @@
     color: #ffffff;
     line-height: 90px;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     font-size: 20px;
     border: 4px ridge black;
-    transition: 1s linear;
-
+    /*transition: 0.3s linear;*/
+    transition: all 0.4s ease-in-out;
 }
 .room-select:hover{
     -webkit-transform: rotate(360deg);
