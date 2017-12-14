@@ -1,15 +1,20 @@
 .main-chat-wrapper{
-    background: #121d2c;
+    background: #0B1A2B;
+    height: calc(100% - 91px);
+    overflow: hidden;
 }
-/*.App{*/
-    /*padding: 20px;*/
-/*}*/
+.main-chat-row{
+    height: 100%;
+}
+.App{
+    height: 100%;
+}
 #Allmsg{
     width: 100%;
-    /*height: 93%;*/
-    background: #e1e1e1;
+    height: 93%;
+    background: #F5F5F6;
     padding: 20px;
-    height: 600px;
+    /*height: 600px;*/
     overflow-y: scroll;
 }
 .OneMsg{

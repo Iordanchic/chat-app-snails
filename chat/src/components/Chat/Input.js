@@ -31,8 +31,10 @@ export default class Chat extends Component {
 
     render() {
         return (
-            <div className="type">
-                <input type="text" className="msg" ref="msg" defaultValue=''  onKeyPress={this.msgon}/>
+            <div className="row">
+                <div className="type col-12">
+                    <input type="text" className="msg" ref="msg" placeholder='Start typing here'  onKeyPress={this.msgon}/>
+                </div>
             </div>
         )
     }
