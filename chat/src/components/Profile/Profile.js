@@ -28,18 +28,18 @@ class Profile extends Component {
         }
     }
     handleSave = () =>{
-        let data = JSON.stringify({newname: this.refs.login.value, oldname: this.state.name, newpassword: this.refs.password.value});
-        fetch(`/changeProfile`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data})
-            .then(res => res.json())
-            .then(res => {
-                console.log("res", res);
+        // let data = JSON.stringify({newname: this.refs.login.value, oldname: this.state.name, newpassword: this.refs.password.value});
+        // fetch(`/changeProfile`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data})
+        //     .then(res => res.json())
+        //     .then(res => {
+        //         console.log("res", res);
 
-            })
-            .catch(err => console.log(err));
-        this.setState({
-            name: this.refs.login.value,
-        });
-        localStorage.clear();
+        //     })
+        //     .catch(err => console.log(err));
+        // this.setState({
+        //     name: this.refs.login.value,
+        // });
+        // localStorage.clear();
     };
 
     handleDelete = () =>{
@@ -52,7 +52,6 @@ class Profile extends Component {
         this.props.history.push('/login')
         // console.log(this.props.history)
     }
-
 
 
     render() {
