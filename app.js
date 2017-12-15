@@ -63,12 +63,12 @@ app.post('/msgtobd', function (req, res) {
 io.on('connection', (client) => {
     var msg = mongoose.model('msgs', msgs);
     // var userinfo = mongoose.model('users',users)
-    console.log('client conect')
+    console.log('client connect')
     client.on('beginchat', (grup) => {
         msg.findOne({ grup: grup }, function (err, res) {
             var body = JSON.parse(JSON.stringify(res))
             if (err) throw err;
-            console.log(body)
+            // console.log(body)
             client.emit('beginchat', (body));
         })
     })
@@ -89,10 +89,10 @@ io.on('connection', (client) => {
             if (err) throw err;
             var body = JSON.parse(JSON.stringify(res));
             body.msgs.push(objmsg.msgs)
-            console.log(body)
+            // console.log(body)
             msg.update({ grup: body.grup.toString() }, body, function (err) {
                 if (err) throw err;
-                console.log(body.grup + ' successfully saved.');
+                // console.log(body.grup + ' successfully saved.');
             });
         });
         client.emit('msgfromchat', objmsg);
@@ -167,20 +167,33 @@ app.post('/changeProfile', check_token, function (req, res) {
         name: body.newname,
         password: body.newpassword
     };
+    console.log(req.body)
     var usersc = mongoose.model('users', userschange);
-    usersc.update({ name: body.oldname.toString() }, b, function (err) {
+    usersc.update({ _id: req.body.id }, b, function (err) {
         if (err) throw err;
     });
 });
+
+// ===== delete profile
+app.post('/deleteProfile', check_token, function (req, res) {
+    var body = req.body;
+    console.log(req.body)
+    var usersc = mongoose.model('users', userschange);
+    usersc.findByIdAndRemove({ _id: req.body.id }, function (err) {
+        if (err) throw err;
+    });
+});
+
 // ======Test
 app.post('/test', check_token, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
         if (db_users) {
-            console.log(db_users);
+            // console.log(db_users);
             let body = {
                 name: db_users.name,
-                img: db_users.userImg
+                img: db_users.userImg,
+                id: req.decoded.id
             }
             res.json(body)
         } else res.json({ status: "NO USER" })

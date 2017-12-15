@@ -25,7 +25,7 @@ class Login extends Component {
             if(res.success === true){
                 let str = JSON.stringify(res);
                 localStorage.setItem("user_token", res.token)
-                this.props.history.push('/chat/main')
+                this.props.history.push('/profile')
             }
             else if(res.success === false){
                 return

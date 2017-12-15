@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
     constructor(props){
         super(props)
 
@@ -17,6 +18,7 @@ export default class SignUp extends React.Component {
 
         })
         .catch(res => console.log('error'));
+        this.props.history.push('/login')
     }
     render(){
         return(
@@ -24,14 +26,14 @@ export default class SignUp extends React.Component {
             <div className="row bg-color">
                 <div className="login-wrap">
                     <div className="login-form">
-                        <h1> Регистрация </h1>
-                        <label>Логин</label>
+                        <h1> Sign Up </h1>
+                        <label>Login:</label>
                         <input ref="login" type="text" />
-                        <label>Пароль</label>
+                        <label>Password:</label>
                         <input ref="pass" type="password" />
-                        <button onClick={this.handleSignUp}> РЕГИСТРАЦИЯ </button>
+                        <button onClick={this.handleSignUp}> Sign Up </button>
                         <br />
-                        <Link to={"/login"}>Есть аккаунт? </Link>
+                        <Link to={"/login"}>Already got an account? </Link>
                         {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
                     </div>
                 </div>
@@ -41,3 +43,5 @@ export default class SignUp extends React.Component {
 
     }
 }
+
+export default withRouter(SignUp)
