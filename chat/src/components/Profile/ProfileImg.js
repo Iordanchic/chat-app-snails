@@ -12,17 +12,12 @@ export default class ProfileImg extends Component {
 
     }
     handleImgs = () => {
-        // console.log(this)
-        this.props.handleImgChoose();
-        console.log(this.props.item)
-        this.setState({
-            data: 1
-        })
+        this.props.handleImgChoose(this.props.item);
     };
     render(){
         return (
             <div className="wrap">
-                <div ref='block' data-id={this.props.item} className="profile-img-edit-pic" style={this.state.data !== 1 ? {backgroundImage: 'url('+ require("../../img/"+this.props.item+".jpg")+')'}:{backgroundImage: 'url('+ require("../../img/"+this.props.item+".jpg")+')', border: "2px solid"} } onClick={this.handleImgs}></div>
+                <div ref='block' data-id={this.props.item} className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/"+this.props.item+".jpg")+')'}} onClick={this.handleImgs}></div>
             </div>
 
         )

@@ -64,23 +64,14 @@ class Profile extends Component {
     };
     handleEditImg = () => {
         this.setState({
-            modalVisibility: true
+            modalVisibility: !this.state.modalVisibility
         })
     };
-    changeChosenImg = (a) => {
-        // this.setState({
-        //     chosenImg: a
-        // })
-        console.log("Parent")
-        // console.log(this.state.chosenImg)
-        console.log(a)
-    };
     handleImgChoose = (a) => {
-        // changeChosenImg(a);
-        console.log("HANDLLE")
+        console.log(a)
+        this.setState({chosenImg: a})
+        console.log(this.state)
     };
-
-
 
     render() {
         // console.log(this.state.img)
@@ -128,6 +119,7 @@ class Profile extends Component {
                                     <div className="profile-img-buttons">
                                         <div className="row d-flex justify-content-center">
                                             <button className="profile-img-edit img-choose  col-3">Edit</button>
+                                            <button className="profile-img-edit img-choose  col-3" onClick={this.handleEditImg}>Close</button>
                                         </div>
                                     </div>
                                 </div>
