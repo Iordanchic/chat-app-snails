@@ -16,8 +16,24 @@ const socket = io('http://localhost:8001');
 // @connect(null, mapDispatchToProps)
 export default class Chat extends Component {
     constructor(props) {
+        console.log( localStorage.getItem("user_token"));
+        let data = JSON.stringify({token: localStorage.getItem("user_token")});
+        console.log(data);
+        fetch(`/test`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data/*body: {token: localStorage.getItem("user_token")}*/})
+        .then(res => res.json())
+        .then(res => {
+            console.log("res", res);
+            if(res.success === false) {
+                this.setState({access: false})
+            } else {
+                this.setState({access: true})
+            }
+
+        })
+        .catch(err => console.log(err));
         super(props);
         this.state={
+            access: null,
             grup:this.props.match.params.id,
             msgs:[],
             user:"user",
@@ -84,6 +100,8 @@ export default class Chat extends Component {
                     </div>
                 </div>
             </div>
+            // </div>
+            
         )
     }
 }
