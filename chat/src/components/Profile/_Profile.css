@@ -28,10 +28,6 @@
     position: absolute;
     background: #F5F5F6;
     z-index: 3;
-    /*top: 0;*/
-    /*bottom: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
 
 }
 .profile-btn {
@@ -56,7 +52,7 @@
     background: #0B1A2B;
     cursor: pointer;
 }
-.profile-img-edit-pic:hover{
+.profile-img-edit-pic:hover, .profile-img-edit-pic:focus{
     opacity: 0.8;
     filter: hue-rotate(90deg);
 }
