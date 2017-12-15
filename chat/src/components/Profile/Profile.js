@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import './_Profile.css';
 import { withRouter } from 'react-router-dom';
+import ProfileImg from './ProfileImg';
 
 
 
@@ -25,7 +26,9 @@ class Profile extends Component {
             access: null,
             name: null,
             img: null,
-            modalVisibility: false
+            modalVisibility: false,
+            imgArr: ['icon1', 'icon2', 'icon3', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'],
+            chosenImg: null
         }
     }
     handleSave = () =>{
@@ -40,7 +43,6 @@ class Profile extends Component {
         this.setState({
             name: this.refs.login.value,
         });
-        // localStorage.clear();
     };
 
     handleDelete = () =>{
@@ -59,18 +61,30 @@ class Profile extends Component {
     handleLogOut = () => {
         localStorage.removeItem('user_token');
         this.props.history.push('/login')
-        // console.log(this.props.history)
     };
     handleEditImg = () => {
         this.setState({
             modalVisibility: true
         })
     };
+    changeChosenImg = (a) => {
+        // this.setState({
+        //     chosenImg: a
+        // })
+        console.log("Parent")
+        // console.log(this.state.chosenImg)
+        console.log(a)
+    };
+    handleImgChoose = (a) => {
+        // changeChosenImg(a);
+        console.log("HANDLLE")
+    };
+
 
 
     render() {
-        console.log(this.state.img)
-        console.log(''+this.state.img+'')
+        // console.log(this.state.img)
+        // console.log(''+this.state.img+'')
         return (
             <div className='profile-container'>
                 {this.state.access === null? <h1> Loading </h1> : this.state.access === true?
@@ -85,32 +99,35 @@ class Profile extends Component {
                             </div>
 
                             {/*<div className="row">*/}
-                                <div className={this.state.modalVisibility ? "modal-window col-12" : "modal-none modal-window col-9"}>
+                                <div className={this.state.modalVisibility ? "modal-window col-12" : "modal-none" +
+                                    " modal-window col-12"}>
                                     <h1>Choose your new account image:</h1>
                                     <div className="row">
-                                        <div className="profile-img-edit-block col-9 d-flex justify-content-center flex-wrap">
+                                        <div className="profile-img-edit-block col-12 d-flex justify-content-center flex-wrap">
+                                            {this.state.imgArr.map((item, i) => {
+                                                return <ProfileImg data={null} key={i} item={item} i={i} handleImgChoose={this.handleImgChoose}/>
+                                                {/*<div data-id={item} key={i} className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/"+item+".jpg")+')'}} onClick={this.handleImgChoose}></div>*/}
+                                            })}
 
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon1.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon2.jpg")+')'}}></div>
-                                            {/*<div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon3.jpg")+')'}}></div>*/}
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon4.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon5.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon6.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon7.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon8.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon9.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon10.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon11.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon12.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon13.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon14.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon15.jpg")+')'}}></div>
-                                            <div className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon16.jpg")+')'}}></div>
+                                            {/*<div data-id='icon2' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon2.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon3' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon4.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon4' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon5.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon5' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon6.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon6' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon7.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon7' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon8.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon8' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon9.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon9' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon10.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon10' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon11.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon11' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon12.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon12' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon13.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon13' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon14.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon14' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon15.jpg")+')'}}></div>*/}
+                                            {/*<div data-id='icon15' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon16.jpg")+')'}}></div>*/}
                                         </div>
                                     </div>
                                     <div className="profile-img-buttons">
                                         <div className="row d-flex justify-content-center">
-                                            <button className="profile-img-edit  col-3">Edit</button>
+                                            <button className="profile-img-edit img-choose  col-3">Edit</button>
                                         </div>
                                     </div>
                                 </div>
