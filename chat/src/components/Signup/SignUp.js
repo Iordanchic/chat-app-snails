@@ -10,7 +10,7 @@ class SignUp extends React.Component {
 
     }
     handleSignUp = () =>{
-        let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value});
+        let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value, email: this.refs.email });
         fetch(`/setup`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
         .then(res => res.json())
         .then(res => {
@@ -29,6 +29,8 @@ class SignUp extends React.Component {
                         <h1> Sign Up </h1>
                         <label>Login:</label>
                         <input ref="login" type="text" />
+                        <label>Email:</label>
+                        <input ref="email" type="email" />
                         <label>Password:</label>
                         <input ref="pass" type="password" />
                         <button onClick={this.handleSignUp}> Sign Up </button>
