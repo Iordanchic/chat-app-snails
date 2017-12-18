@@ -67,7 +67,7 @@ export default class Chat extends Component {
         .then(res => res.json())
         .then(res => {
             // console.log(res)
-            this.setState({author:res.name, img:res.img})
+            this.setState({author:res.name})
         })
         .catch(err => console.log(err));
     };
@@ -98,7 +98,7 @@ export default class Chat extends Component {
                             }
                         </div>
                         <div className="chat-input">
-                            <Input user={this.state.author} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            <Input user={this.state.author} i grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>
