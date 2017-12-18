@@ -84,7 +84,7 @@ io.on('connection', (client) => {
         msg.findOne({ grup: objmsg.grup.toString() }, function (err, res) {
             if (err) throw err;
             var body = JSON.parse(JSON.stringify(res));
-            body.msgs.push(objmsg.msgs)
+            body.msgs.push(objmsg.msgs);
             // console.log(body)
             msg.update({ grup: body.grup.toString() }, body, function (err) {
                 if (err) throw err;
@@ -199,7 +199,6 @@ app.post('/deleteProfile', checkToken, function (req, res) {
 // ======Beginchat
 app.post('/beginchat', checkToken, function (req, res) {
     var msg = mongoose.model('msgs', msgs);
-    var a
     msg.findOne({grup: req.body.grup}, (err, ressend) => {
         if (err) throw err;
         res.json(ressend)
@@ -214,6 +213,20 @@ app.post('/getllogin', checkToken, function (req, res) {
         res.json(ressend)
     })
 });
+// app.post('/getimgtomsg', checkToken, function (req, res) {
+//     // var usersc = mongoose.model('users', user);
+//     console.log(req.name);
+//     // User.findOne({_id: req.decoded.id}, (err, ressend) => {
+//     //     if (err) throw err;
+//     //
+//     //     console.log(ressend)
+//     //     res.json(ressend)
+//     // })
+//     usersc.findOne({name: req.name}, (err, ressend) => {
+//         if (err) throw err;
+//         res.json(ressend)
+//     })
+// });
 // ======Test
 app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {

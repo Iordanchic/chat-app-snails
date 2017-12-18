@@ -27,7 +27,7 @@ export default class Chat extends Component {
             if(res.success === false) {
                 this.setState({access: false})
             } else {
-                this.setState({access: true, user:res.name})
+                this.setState({access: true, user:res.name, img: res.img})
             }
 
         })
@@ -55,7 +55,7 @@ export default class Chat extends Component {
             this.setState({msgs:res.msgs})
         })
         .catch(err => console.log(err));
-    }
+    };
     
     getlogin = () =>{
         var body = JSON.stringify({token:localStorage.getItem('user_token')})
@@ -67,10 +67,10 @@ export default class Chat extends Component {
         .then(res => res.json())
         .then(res => {
             // console.log(res)
-            this.setState({author:res.name})
+            this.setState({author:res.name, img:res.img})
         })
         .catch(err => console.log(err));
-    }
+    };
     
     componentDidMount(){
         this.getmsgs();
@@ -98,7 +98,7 @@ export default class Chat extends Component {
                             }
                         </div>
                         <div className="chat-input">
-                            <Input user={this.state.author} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            <Input user={this.state.author} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>
