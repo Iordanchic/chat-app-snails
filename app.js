@@ -171,7 +171,7 @@ app.post('/changeProfile', checkToken, function (req, res) {
             if (err) throw err;
         });
     } else {
-        // if (body.newname !== "") {
+        if (body.newname !== "") {
             console.log("UPDATING")
             User.findById({ _id: req.body.id }, function (err, user) {
                 if (err) return handleError(err);
@@ -184,7 +184,7 @@ app.post('/changeProfile', checkToken, function (req, res) {
                     res.send(updatedUser);
                 });
             });
-        // }
+        }
         
         // User.update({ _id: req.body.id }, obj, function (err) {
         //     if (err) throw err;
@@ -268,3 +268,4 @@ console.log('listening on port to socket', port);
 app.use('/aaa', aaa);
 
 app.listen(3001, () => console.log('listening on port to 3001!'))
+
