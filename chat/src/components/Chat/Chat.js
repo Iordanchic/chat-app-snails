@@ -16,13 +16,14 @@ const socket = io('http://localhost:8001');
 // @connect(null, mapDispatchToProps)
 export default class Chat extends Component {
     constructor(props) {
-        console.log( localStorage.getItem("user_token"));
         let data = JSON.stringify({token: localStorage.getItem("user_token")});
-        console.log(data);
-        fetch(`/test`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data/*body: {token: localStorage.getItem("user_token")}*/})
+        fetch(`/test`, { 
+            method: 'POST', 
+            headers: { "Content-Type": "application/json"}, 
+            body: data
+        })
         .then(res => res.json())
         .then(res => {
-            console.log("res", res);
             if(res.success === false) {
                 this.setState({access: false})
             } else {
@@ -43,18 +44,31 @@ export default class Chat extends Component {
     }
 
     getmsgs = () =>{
-        socket.emit('beginchat',(this.state.grup))
-        socket.on('beginchat', (objoldmsg)=>{
-            if(objoldmsg != null){
-            this.setState({
-                msgs:objoldmsg.msgs
-            })
-        }else{
-            console.log('no grup')
-        }
-        })
-        // socket.emit('getallgrupuser',(this.state.user))
-        // socket.on('getallgrupuser',)
+        // fetch(`/beginchat`, { 
+        //     method: 'POST', 
+        //     headers: { "Content-Type": "application/json"}, 
+        //     body: data
+        // })
+        // .then(res => res.json())
+        // .then(res => {
+        //     if(res.success === false) {
+        //         // this.setState({access: false})
+        //     } else {
+        //         // this.setState({access: true})
+        //     }
+
+        // })
+        // .catch(err => console.log(err));
+        // socket.emit('beginchat',(this.state.grup))
+        // socket.on('beginchat', (objoldmsg)=>{
+        //     if(objoldmsg != null){
+        //     this.setState({
+        //         msgs:objoldmsg.msgs
+        //     })
+        // }else{
+        //     console.log('no grup')
+        // }
+        // })
     }
 
     componentDidMount(){

@@ -1,7 +1,6 @@
 const express = require('express');
 var _ = require("lodash");
 var passport = require("passport");
-
 const app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -10,10 +9,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var url = 'mongodb://snail:snails@ds129386.mlab.com:29386/chat_db';
-
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User = require('./models/user'); // get our mongoose model
@@ -229,12 +226,6 @@ app.post('/authenticate', function (req, res) {
 
     });
 });
-
-
-
-
-
-
 
 const port = 8001;
 io.listen(port);
