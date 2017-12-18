@@ -222,7 +222,7 @@ app.post('/changeProfile', checkToken, function (req, res) {
     let body = req.body;
 
     if (body.newpassword === "") {
-        User.update({ _id: req.body.id }, { name: body.newname }, function (err) {
+        User.update({ _id: req.body.id }, { name: body.newname, userImg: body.newImg }, function (err) {
             if (err) throw err;
         });
     } else {
@@ -272,6 +272,7 @@ app.post('/test', checkToken, function (req, res) {
 
     })
 });
+
 // ===== Signup
 app.post('/authenticate', function (req, res) {
     // console.log(req)

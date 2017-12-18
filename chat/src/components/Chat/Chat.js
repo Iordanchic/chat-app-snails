@@ -50,7 +50,7 @@ export default class Chat extends Component {
                 msgs:objoldmsg.msgs
             })
         }else{
-            console.log('no grup')
+            console.log('no group')
         }
         })
     }
@@ -78,7 +78,7 @@ export default class Chat extends Component {
                     <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div id="Allmsg">
-                            {this.state.msgs.length == 0?<p>loading</p>:
+                            {this.state.msgs.length == 0?<p className='loader'>loading</p>:
                                 this.state.msgs.map((item,index) => {
                                     return <Messege item={item} key={index} />
                                 })}
