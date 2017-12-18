@@ -217,6 +217,7 @@ app.post('/test', checkToken, function (req, res) {
 
     })
 });
+
 // ===== Signup
 app.post('/authenticate', function (req, res) {
     // console.log(req)
