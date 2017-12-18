@@ -200,6 +200,22 @@ app.post('/test', check_token, function (req, res) {
 
     })
 });
+// // ===== Header-profile-img
+// app.post('/profileImg', check_token, function (req, res) {
+//     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
+//         if (err) throw err;
+//         if (db_users) {
+//             // console.log(db_users);
+//             let body = {
+//                 name: db_users.name,
+//                 img: db_users.userImg,
+//                 id: req.decoded.id
+//             }
+//             res.json(body)
+//         } else res.json({ status: "NO USER" })
+//
+//     })
+// });
 // =====Signup
 app.post('/authenticate', function (req, res) {
     // console.log(req)
