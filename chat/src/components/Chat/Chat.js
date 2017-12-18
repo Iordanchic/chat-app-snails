@@ -27,7 +27,7 @@ export default class Chat extends Component {
             if(res.success === false) {
                 this.setState({access: false})
             } else {
-                this.setState({access: true})
+                this.setState({access: true, user:res.name})
             }
 
         })
@@ -44,21 +44,15 @@ export default class Chat extends Component {
     }
 
     getmsgs = () =>{
-        // fetch(`/beginchat`, { 
-        //     method: 'POST', 
-        //     headers: { "Content-Type": "application/json"}, 
-        //     body: data
-        // })
-        // .then(res => res.json())
-        // .then(res => {
-        //     if(res.success === false) {
-        //         // this.setState({access: false})
-        //     } else {
-        //         // this.setState({access: true})
-        //     }
-
-        // })
-        // .catch(err => console.log(err));
+        fetch(`/beginchat`, { 
+            method: 'POST', 
+            headers: { "Content-Type": "application/json"}, 
+            body: this.state.grup
+        })
+        .then(res => res.json())
+        .then(res => {
+        })
+        .catch(err => console.log(err));
         // socket.emit('beginchat',(this.state.grup))
         // socket.on('beginchat', (objoldmsg)=>{
         //     if(objoldmsg != null){

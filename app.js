@@ -65,7 +65,6 @@ io.on('connection', (client) => {
         msg.findOne({ grup: grup }, function (err, res) {
             var body = JSON.parse(JSON.stringify(res))
             if (err) throw err;
-            console.log(body)
             client.emit('beginchat', (body));
         })
     })
@@ -168,6 +167,16 @@ app.post('/changeProfile', check_token, function (req, res) {
     usersc.update({ name: body.oldname.toString() }, b, function (err) {
         if (err) throw err;
     });
+});
+// ======Beginchat
+app.post('/beginchat', check_token, function (req, res) {
+    var msg = mongoose.model('msgs', msgs);
+    console.log(req)
+    msg.findOne({ grup: req }, function (err, res) {
+        var body = JSON.parse(JSON.stringify(res))
+        if (err) throw err;
+        res.json(body)
+    })
 });
 // ======Test
 app.post('/test', check_token, function (req, res) {
