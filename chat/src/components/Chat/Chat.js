@@ -91,7 +91,11 @@ export default class Chat extends Component {
                     <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div id="Allmsg">
+<<<<<<< HEAD
                             {this.state.msgs.length < 0?<p>loading</p>:
+=======
+                            {this.state.msgs.length == 0?<p className='loader'>loading</p>:
+>>>>>>> d1813ed9d0843b814bfeddf3ac7c779ffc0728ae
                                 this.state.msgs.map((item,index) => {
                                     return <Messege item={item} key={index} />
                                 })

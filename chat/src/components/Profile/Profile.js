@@ -17,7 +17,7 @@ class Profile extends Component {
                 if(res.success === false) {
                     this.setState({access: false})
                 } else {
-                    this.setState({access: true, name: res.name, img: res.img, id: res.id})
+                    this.setState({access: true, name: res.name, img: res.img, chosenImg:res.img, id: res.id})
                 }
 
             })
@@ -27,12 +27,13 @@ class Profile extends Component {
             name: null,
             img: null,
             modalVisibility: false,
-            imgArr: ['icon1', 'icon2', 'icon3', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'],
+            imgArr: ['icon1', 'icon2', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'],
             chosenImg: null
         }
     }
+
     handleSave = () =>{
-        let data = JSON.stringify({newname: this.refs.login.value, oldname: this.state.name, newpassword: this.refs.password.value, id: this.state.id, token: localStorage.getItem("user_token")});
+        let data = JSON.stringify({newname: this.refs.login.value, oldname: this.state.name, newpassword: this.refs.password.value, id: this.state.id, newImg: this.state.img, token: localStorage.getItem("user_token")});
         fetch(`/changeProfile`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data})
             .then(res => res.json())
             .then(res => {
@@ -68,9 +69,9 @@ class Profile extends Component {
         })
     };
     handleImgChoose = (a) => {
-        console.log(a)
-        this.setState({chosenImg: a})
-        console.log(this.state)
+        // console.log(a);
+        this.setState({img: a, modalVisibility: !this.state.modalVisibility});
+        // console.log(this.state)
     };
 
     render() {
@@ -78,7 +79,7 @@ class Profile extends Component {
         // console.log(''+this.state.img+'')
         return (
             <div className='profile-container'>
-                {this.state.access === null? <h1> Loading </h1> : this.state.access === true?
+                {this.state.access === null? <h1 className='loader'> Loading </h1> : this.state.access === true?
                     <div className="profile-wrapper">
                         <div className="row">
                             <h1 className='profile-heading col-12'>Profile settings</h1>
@@ -97,28 +98,13 @@ class Profile extends Component {
                                         <div className="profile-img-edit-block col-12 d-flex justify-content-center flex-wrap">
                                             {this.state.imgArr.map((item, i) => {
                                                 return <ProfileImg data={null} key={i} item={item} i={i} handleImgChoose={this.handleImgChoose}/>
-                                                {/*<div data-id={item} key={i} className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/"+item+".jpg")+')'}} onClick={this.handleImgChoose}></div>*/}
                                             })}
 
-                                            {/*<div data-id='icon2' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon2.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon3' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon4.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon4' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon5.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon5' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon6.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon6' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon7.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon7' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon8.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon8' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon9.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon9' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon10.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon10' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon11.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon11' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon12.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon12' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon13.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon13' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon14.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon14' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon15.jpg")+')'}}></div>*/}
-                                            {/*<div data-id='icon15' className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/icon16.jpg")+')'}}></div>*/}
                                         </div>
                                     </div>
                                     <div className="profile-img-buttons">
                                         <div className="row d-flex justify-content-center">
-                                            <button className="profile-img-edit img-choose  col-3">Edit</button>
+                                            {/*<button className="profile-img-edit img-choose  col-3">Edit</button>*/}
                                             <button className="profile-img-edit img-choose  col-3" onClick={this.handleEditImg}>Close</button>
                                         </div>
                                     </div>

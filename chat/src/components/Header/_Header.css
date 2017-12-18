@@ -34,3 +34,13 @@ header {
     text-decoration: none;
     color: #00c3c3;
 }
+.profile-img-edit-pic-header{
+    /*margin: auto;*/
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #0B1A2B;
+    cursor: pointer;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
