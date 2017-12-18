@@ -37,73 +37,68 @@ export default class Chat extends Component {
             access: null,
             grup:this.props.match.params.id,
             msgs:[],
-            user:"user",
+            author:"",
             userongrup:"",
             allgrup:[{grup:"main"},{grup:"main2"}]
         }
     }
 
     getmsgs = () =>{
-        fetch(`/beginchat`, { 
-            method: 'POST', 
+        var body = JSON.stringify({token:localStorage.getItem('user_token'), grup:this.state.grup})
+        fetch(`/beginchat`, {
+            method: 'POST',
             headers: { "Content-Type": "application/json"}, 
-            body: this.state.grup
+            body: body
         })
         .then(res => res.json())
         .then(res => {
+            this.setState({msgs:res.msgs})
         })
         .catch(err => console.log(err));
-        // socket.emit('beginchat',(this.state.grup))
-        // socket.on('beginchat', (objoldmsg)=>{
-        //     if(objoldmsg != null){
-        //     this.setState({
-        //         msgs:objoldmsg.msgs
-        //     })
-        // }else{
-        //     console.log('no grup')
-        // }
-        // })
     }
 
+    getlogin = () =>{
+        var body = JSON.stringify({token:localStorage.getItem('user_token')})
+        fetch(`/getllogin`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"}, 
+            body: body
+        })
+        .then(res => res.json())
+        .then(res => {
+            // console.log(res)
+            this.setState({author:res.name})
+        })
+        .catch(err => console.log(err));
+    }
+    
     componentDidMount(){
         this.getmsgs();
-
-        socket.emit('getlogin',({email:"2"}))
-
-        socket.on('getlogin', (objlogin)=>{
-            this.props.getUserInfo(objlogin)
-        })
+        this.getlogin();
 
         socket.on('msgfromchat', (objmsg) => {
-            console.log(objmsg.msgs)
             if(objmsg.grup == this.state.grup){
                 this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
             }
         })
     }
-    chanInGrup = (grup) =>{
-        this.setState({
-            grup:grup
-        })
-        this.forceUpdate()
-    }
 
     render() {
-        // console.log(this.state)
+        console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
                     <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div id="Allmsg">
-                            {this.state.msgs.length == 0?<p>loading</p>:
+                            {this.state.msgs.length < 0?<p>loading</p>:
                                 this.state.msgs.map((item,index) => {
                                     return <Messege item={item} key={index} />
                                 })
                             }
                         </div>
                         <div className="chat-input">
-                            <Input user={this.state.user} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            <Input user={this.state.author} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>

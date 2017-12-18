@@ -13,8 +13,22 @@
     padding: 30px;
     height: 100%;
 }
-.profile-wrapper .row{
+.profile-wrapper .row {
+    position: relative;
     /*height: 100%;*/
+}
+.profile-main{
+    height: 100%;
+}
+.profile-left-sidebar{
+    height: 100%;
+}
+.modal-window{
+    height: 100%;
+    position: absolute;
+    background: #F5F5F6;
+    z-index: 3;
+
 }
 .profile-btn {
     height: 40px;
@@ -36,6 +50,14 @@
     height: 80px;
     border-radius: 50%;
     background: #0B1A2B;
+    cursor: pointer;
+}
+.profile-img-edit-pic:hover, .profile-img-edit-pic:focus{
+    opacity: 0.8;
+    filter: hue-rotate(90deg);
+}
+.profile-img-edit-pic:focus{
+    border: 1px solid;
 }
 .profile-img-buttons {
     margin-top: 30px;
@@ -89,3 +111,7 @@
 .profile-btns-wrapper button:hover, .profile-btns-wrapper a:hover{
      opacity: 0.8;
  }
+
+.modal-none{
+    display: none;
+}

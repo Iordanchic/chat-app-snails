@@ -18,7 +18,7 @@ export default class Chat extends Component {
                 msgs:{
                     date:"",
                     msg:"",
-                    author:"user"
+                    author:this.props.user
                 }   
             }
             var b=new Date()

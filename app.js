@@ -60,7 +60,7 @@ app.post('/msgtobd', function (req, res) {
 io.on('connection', (client) => {
     var msg = mongoose.model('msgs', msgs);
     // var userinfo = mongoose.model('users',users)
-    console.log('client conect')
+    console.log('client connect')
     client.on('beginchat', (grup) => {
         msg.findOne({ grup: grup }, function (err, res) {
             var body = JSON.parse(JSON.stringify(res))
@@ -85,10 +85,10 @@ io.on('connection', (client) => {
             if (err) throw err;
             var body = JSON.parse(JSON.stringify(res));
             body.msgs.push(objmsg.msgs)
-            console.log(body)
+            // console.log(body)
             msg.update({ grup: body.grup.toString() }, body, function (err) {
                 if (err) throw err;
-                console.log(body.grup + ' successfully saved.');
+                // console.log(body.grup + ' successfully saved.');
             });
         });
         client.emit('msgfromchat', objmsg);
@@ -105,29 +105,33 @@ imgRandom = (min, max) => {
 let userImgs = ['icon1', 'icon2', 'icon3', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'];
 // ========Signup New User
 app.post('/setup', function (req, res) {
-    let randomNum = imgRandom(0, 16);
-    // console.log(randomNum)
-    // create a sample user
-    var nick = new User({
-        name: req.body.name,
-        password: req.body.password,
-        admin: true,
-        userImg: userImgs[randomNum]
-    });
-    nick.save(function (err) {
-        if (err) throw err;
+    if (req.body.password) {
+        let randomNum = imgRandom(0, 16);
+        // create a sample user
+        var nick = new User({
+            name: req.body.name,
+            // password: req.body.password,
+            admin: true,
+            userImg: userImgs[randomNum]
+        });
+    
+        nick.password = nick.generateHash(req.body.password);
+        nick.save(function (err) {
+            if (err) throw err;
+            console.log('User saved successfully');
+            res.json({ success: true });
+        });
+    }
 
-        console.log('User saved successfully');
-        res.json({ success: true });
-    });
 });
 
 
 // ==================Tokens requests ====================
-let check_token = function (req, res, next) {
+let checkToken = function (req, res, next) {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
     // decode token
+    
     // console.log("TOOOOKEN")
     // console.log(token)
     if (token) {
@@ -142,9 +146,7 @@ let check_token = function (req, res, next) {
                 next();
             }
         });
-
     } else {
-
         // if there is no token
         // return an error
         return res.status(403).send({
@@ -155,63 +157,97 @@ let check_token = function (req, res, next) {
     }
 
 }
-// ====================== profile ======================
-app.post('/changeProfile', check_token, function (req, res) {
+// ===== Change profile 
+app.post('/changeProfile', checkToken, function (req, res) {
+    let body = req.body;
+
+    if (body.newpassword === "") {
+        User.update({ _id: req.body.id }, { name: body.newname }, function (err) {
+            if (err) throw err;
+        });
+    } else {
+        // if (body.newname !== "") {
+            // console.log("UPDATING")
+            User.findById({ _id: req.body.id }, function (err, user) {
+                if (err) return handleError(err);
+    
+                let nick1 = new User();
+                let pass = nick1.generateHash(body.newpassword);
+                user.set({ password: pass, name: body.newname });
+                user.save(function (err, updatedUser) {
+                    if (err) return handleError(err);
+                    res.send(updatedUser);
+                });
+            });
+        // }
+        
+        // User.update({ _id: req.body.id }, obj, function (err) {
+        //     if (err) throw err;
+        // });
+    }
+});
+// ===== Delete profile
+app.post('/deleteProfile', checkToken, function (req, res) {
     var body = req.body;
-    // console.log(body);
-    var b = {
-        name: body.newname,
-        password: body.newpassword
-    };
+    // console.log(req.body)
     var usersc = mongoose.model('users', userschange);
-    usersc.update({ name: body.oldname.toString() }, b, function (err) {
+    usersc.findByIdAndRemove({ _id: req.body.id }, function (err) {
         if (err) throw err;
     });
 });
+
 // ======Beginchat
-app.post('/beginchat', check_token, function (req, res) {
+app.post('/beginchat', checkToken, function (req, res) {
     var msg = mongoose.model('msgs', msgs);
-    console.log(req)
-    msg.findOne({ grup: req }, function (err, res) {
-        var body = JSON.parse(JSON.stringify(res))
+    var a
+    msg.findOne({grup: req.body.grup}, (err, ressend) => {
         if (err) throw err;
-        res.json(body)
+        res.json(ressend)
+    })
+});
+
+// ======GetLogin
+app.post('/getllogin', checkToken, function (req, res) {
+    var usersc = mongoose.model('users', userschange);
+    usersc.findOne({_id: req.decoded.id}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
     })
 });
 // ======Test
-app.post('/test', check_token, function (req, res) {
+app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
         if (db_users) {
-            console.log(db_users);
+            // console.log(db_users);
             let body = {
                 name: db_users.name,
-                img: db_users.userImg
+                img: db_users.userImg,
+                id: req.decoded.id
             }
             res.json(body)
         } else res.json({ status: "NO USER" })
 
     })
 });
-// =====Signup
+
+// ===== Signup
 app.post('/authenticate', function (req, res) {
     // console.log(req)
     // find the user
     User.findOne({
         name: req.body.name
     }, function (err, user) {
-
         if (err) throw err;
 
         if (!user) {
             res.json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
-
             // check if password matches
-            if (user.password != req.body.password) {
+            if ( !user.validPassword(req.body.password)/*user.password != req.body.password*/) {
+                // console.log(user) 
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
-
                 // if user is found and password is right
                 // create a token
                 var payload = {
