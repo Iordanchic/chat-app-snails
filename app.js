@@ -36,7 +36,7 @@ var msgs = mongoose.Schema({
     },
 });
 var users = mongoose.Schema({
-    local: {}
+    
 });
 var userschange = mongoose.Schema({
     name: String,
@@ -61,26 +61,8 @@ io.on('connection', (client) => {
     var msg = mongoose.model('msgs', msgs);
     // var userinfo = mongoose.model('users',users)
     console.log('client connect')
-    client.on('beginchat', (grup) => {
-        msg.findOne({ grup: grup }, function (err, res) {
-            var body = JSON.parse(JSON.stringify(res))
-            if (err) throw err;
-            client.emit('beginchat', (body));
-        })
-    })
-
-
-    client.on('getlogin', (objuser) => {
-        // userinfo.find({},function(err,res){
-        //     if (err) throw err;
-        //     res.map((item, index)=>{
-        //         if(item.email==objuser.email){
-        //             client.emit('getlogin',(item))
-        //         }
-        //     })
-        // })
-    });
     client.on('msgtochat', (objmsg) => {
+        console.log(objmsg)
         msg.findOne({ grup: objmsg.grup.toString() }, function (err, res) {
             if (err) throw err;
             var body = JSON.parse(JSON.stringify(res));
@@ -98,6 +80,7 @@ io.on('connection', (client) => {
         console.log('client disconnect')
     })
 });
+
 // choose img randomly
 imgRandom = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -213,26 +196,29 @@ app.post('/getllogin', checkToken, function (req, res) {
         res.json(ressend)
     })
 });
-// app.post('/getimgtomsg', checkToken, function (req, res) {
-//     // var usersc = mongoose.model('users', user);
-//     console.log(req.name);
-//     // User.findOne({_id: req.decoded.id}, (err, ressend) => {
-//     //     if (err) throw err;
-//     //
-//     //     console.log(ressend)
-//     //     res.json(ressend)
-//     // })
-//     usersc.findOne({name: req.name}, (err, ressend) => {
-//         if (err) throw err;
-//         res.json(ressend)
-//     })
-// });
+
+app.post('/getimgtomsg', checkToken, function (req, res) {
+    var usersc = mongoose.model('users', userschange);
+    // console.log(req.body);
+    // User.findOne({_id: req.decoded.id}, (err, ressend) => {
+    //     if (err) throw err;
+    //
+    //     console.log(ressend)
+    //     res.json(ressend)
+    // })
+    usersc.findOne({name: req.body.name}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+
 // ======Test
 app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
         if (db_users) {
             // console.log(db_users);
+
             let body = {
                 name: db_users.name,
                 img: db_users.userImg,

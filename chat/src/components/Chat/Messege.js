@@ -7,12 +7,28 @@ export default class Messege extends Component {
 
     }
 
+    componentDidMount(){
+        var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
+        fetch(`/getimgtomsg`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json"},
+                body: data
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log("res", res);
+                this.setState({img: res.userImg})
+            })
+            .catch(err => console.log(err));
+    }
     render() {
         // console.log(this.props.item["msgs"]);
         return (
                 <div className="OneMsg">
                    <div className="row ">
-                       <div className="col-1"><div className="LogoUser"></div></div>
+                       <div className="col-1">
+                           <div className="LogoUser" style={this.state.img === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
+                       </div>
                        <div className="col-11">
                            <div className="Msg">
                               <div className="row">
