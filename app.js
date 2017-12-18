@@ -109,25 +109,97 @@ imgRandom = (min, max) => {
 let userImgs = ['icon1', 'icon2', 'icon3', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'];
 // ========Signup New User
 app.post('/setup', function (req, res) {
+    let respons = { emailValRes : false, nameRes : false, emailRes : false, addedToDb : false, token : '', name : '', email : '', isOwner : true };
 
-    if (req.body.password) {
-        let randomNum = imgRandom(0, 16);
-        // create a sample user
-        var nick = new User({
-            name: req.body.name,
-            email: req.body.email,
-            // password: req.body.password,
-            admin: true,
-            userImg: userImgs[randomNum]
-        });
-
-        nick.password = nick.generateHash(req.body.password);
-        nick.save(function (err) {
-            if (err) throw err;
-            console.log('User saved successfully');
-            res.json({ success: true });
-        });
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+        
     }
+    function validate() {
+        var email = req.body.email;
+        if (!validateEmail(email)) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    if (validate()) {
+        console.log('Set email to valid');
+        respons.emailValRes = true;
+    }
+
+    User.find({ name: req.body.name }, (err, name) => {
+        if (err) console.log(err);
+        if (!name.length) {
+            respons.nameRes = true;
+        };
+
+        User.find({ email: req.body.email }, (err, email) => {
+            if (err) console.log(err);
+            if (!email.length) {
+                console.log('Login access');
+                respons.emailRes = true; 
+                respons.addedToDb = true;
+                console.log(respons)
+            }
+            if (respons.emailValRes && respons.nameRes && respons.emailRes) {
+                console.log('All parameters are Valid')
+                // respons.name = req.body.name;
+                // respons.email = req.body.email;
+
+                let randomNum = imgRandom(0, 16);
+                // create a sample user
+                var nick = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    // password: req.body.password,
+                    admin: true,
+                    userImg: userImgs[randomNum]
+                });
+        
+                nick.password = nick.generateHash(req.body.password);
+                nick.save(function (err) {
+                    if (err) throw err;
+                    console.log('User saved successfully');
+                    res.json({ success: true, respons });
+                });
+
+                // res.send(JSON.stringify(respons));
+            } else {
+                res.json({ respons });
+            }
+
+        });
+
+    });
+
+
+    console.log(req.body)
+    // console.log(respons)
+
+
+    // if (req.body.password) {
+    //     let randomNum = imgRandom(0, 16);
+    //     // create a sample user
+    //     var nick = new User({
+    //         name: req.body.name,
+    //         email: req.body.email,
+    //         // password: req.body.password,
+    //         admin: true,
+    //         userImg: userImgs[randomNum]
+    //     });
+
+    //     nick.password = nick.generateHash(req.body.password);
+    //     nick.save(function (err) {
+    //         if (err) throw err;
+    //         console.log('User saved successfully');
+    //         res.json({ success: true });
+    //     });
+    // }
+
+
 
 });
 

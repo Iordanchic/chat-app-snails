@@ -9,18 +9,33 @@ class SignUp extends React.Component {
         super(props)
 
     }
-    handleSignUp = () =>{
-        let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value, email: this.refs.email });
+    handleSignUp = () => {
+        let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value, email: this.refs.email.value });
         fetch(`/setup`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
-        .then(res => res.json())
-        .then(res => {
-            console.log("res", res);
-
-        })
-        .catch(res => console.log('error'));
-        this.props.history.push('/login')
+            .then(res => res.json())
+            .then(res => {
+                console.log("res", res);
+                let valids = res.respons;
+                console.log(valids);
+                if (!valids.nameRes) {
+                    console.log("Ne tot nick");
+                    this.refs.login.style.borderBottom = "2px solid coral";
+                    if(!valids.emailValRes) {
+                        console.log("Ne tot email from nick");
+                        this.refs.email.style.borderBottom = "2px solid coral";
+                    }
+                }
+                else if (!valids.emailValRes) {
+                    console.log("Ne tot email");
+                    this.refs.email.style.borderBottom = "2px solid coral";
+                    
+                }
+                
+            })
+            .catch(res => console.log('error'));
+        // this.props.history.push('/login')
     }
-    render(){
+    render() {
         return(
             <div className="container">
             <div className="row bg-color">
