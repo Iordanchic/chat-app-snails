@@ -35,6 +35,18 @@ class SignUp extends React.Component {
             .catch(res => console.log('error'));
         // this.props.history.push('/login')
     }
+    
+    colorChangeName = () => {
+        console.log(this);
+        this.refs.login.style.borderBottom = "2px solid rgb(155, 154, 154)";
+
+    }
+    colorChangeEmail = () => {
+        console.log(this);
+        this.refs.email.style.borderBottom = "2px solid rgb(155, 154, 154)";
+
+    }
+
     render() {
         return(
             <div className="container">
@@ -43,9 +55,9 @@ class SignUp extends React.Component {
                     <div className="login-form">
                         <h1> Sign Up </h1>
                         <label>Login:</label>
-                        <input ref="login" type="text" />
+                        <input onInput={this.colorChangeName} ref="login" type="text" />
                         <label>Email:</label>
-                        <input ref="email" type="email" />
+                        <input onInput={this.colorChangeEmail} ref="email" type="email" />
                         <label>Password:</label>
                         <input ref="pass" type="password" />
                         <button onClick={this.handleSignUp}> Sign Up </button>

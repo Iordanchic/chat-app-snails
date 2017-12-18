@@ -18,9 +18,9 @@ export default class Chat extends Component {
                 msgs:{
                     date:"",
                     msg:"",
-                    author:"user"
+                    author:this.props.user
                 }   
-            }
+            };
             var b=new Date()
             objmsg.msgs.date= b.getDate() + '-' + (b.getMonth() + 1) + '-' + b.getFullYear();
             objmsg.msgs.msg = this.refs.msg.value;

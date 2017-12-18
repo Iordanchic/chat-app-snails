@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Messege from './Messege';
 import SelectRooms from '../SelectRooms/SelectRooms';
 import './_Chat.css';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, withRouter} from 'react-router-dom'
 // import Footer from '../components/Footer';
 // import {bindActionCreators} from 'redux';
 // import {Route, Link} from 'react-router-dom';
@@ -16,17 +16,18 @@ const socket = io('http://localhost:8001');
 // @connect(null, mapDispatchToProps)
 export default class Chat extends Component {
     constructor(props) {
-        console.log( localStorage.getItem("user_token"));
         let data = JSON.stringify({token: localStorage.getItem("user_token")});
-        console.log(data);
-        fetch(`/test`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data/*body: {token: localStorage.getItem("user_token")}*/})
+        fetch(`/test`, { 
+            method: 'POST', 
+            headers: { "Content-Type": "application/json"}, 
+            body: data
+        })
         .then(res => res.json())
         .then(res => {
-            console.log("res", res);
             if(res.success === false) {
                 this.setState({access: false})
             } else {
-                this.setState({access: true})
+                this.setState({access: true, user:res.name, img: res.img})
             }
 
         })
@@ -36,42 +37,54 @@ export default class Chat extends Component {
             access: null,
             grup:this.props.match.params.id,
             msgs:[],
-            user:"user",
+            author:"",
             userongrup:"",
-            render:false
+            allgrup:[{grup:"main"},{grup:"main2"}]
         }
     }
 
     getmsgs = () =>{
-        socket.emit('beginchat',(this.state.grup))
-        socket.on('beginchat', (objoldmsg)=>{
-            if(objoldmsg != null){
-            this.setState({
-                msgs:objoldmsg.msgs
-            })
-        }else{
-            console.log('no group')
-        }
+        var body = JSON.stringify({token:localStorage.getItem('user_token'), grup:this.state.grup})
+        fetch(`/beginchat`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"}, 
+            body: body
         })
-    }
-
+        .then(res => res.json())
+        .then(res => {
+            this.setState({msgs:res.msgs})
+        })
+        .catch(err => console.log(err));
+    };
+    
+    getlogin = () =>{
+        var body = JSON.stringify({token:localStorage.getItem('user_token')})
+        fetch(`/getllogin`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"}, 
+            body: body
+        })
+        .then(res => res.json())
+        .then(res => {
+            // console.log(res)
+            this.setState({author:res.name, img:res.img})
+        })
+        .catch(err => console.log(err));
+    };
+    
     componentDidMount(){
         this.getmsgs();
-
-        socket.emit('getlogin',({email:"2"}))
-
-        socket.on('getlogin', (objlogin)=>{
-            this.props.getUserInfo(objlogin)
-        })
+        this.getlogin();
 
         socket.on('msgfromchat', (objmsg) => {
-            console.log(objmsg.msgs)
-            this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
+            if(objmsg.grup == this.state.grup){
+                this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
+            }
         })
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
@@ -81,10 +94,11 @@ export default class Chat extends Component {
                             {this.state.msgs.length == 0?<p className='loader'>loading</p>:
                                 this.state.msgs.map((item,index) => {
                                     return <Messege item={item} key={index} />
-                                })}
+                                })
+                            }
                         </div>
                         <div className="chat-input">
-                            <Input user={this.state.user} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            <Input user={this.state.author} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>

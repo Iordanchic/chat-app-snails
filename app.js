@@ -1,7 +1,6 @@
 const express = require('express');
 var _ = require("lodash");
 var passport = require("passport");
-
 const app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -10,10 +9,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var url = 'mongodb://snail:snails@ds129386.mlab.com:29386/chat_db';
-
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User = require('./models/user'); // get our mongoose model
@@ -39,7 +36,7 @@ var msgs = mongoose.Schema({
     },
 });
 var users = mongoose.Schema({
-    local: {}
+    
 });
 var userschange = mongoose.Schema({
     name: String,
@@ -64,31 +61,12 @@ io.on('connection', (client) => {
     var msg = mongoose.model('msgs', msgs);
     // var userinfo = mongoose.model('users',users)
     console.log('client connect')
-    client.on('beginchat', (grup) => {
-        msg.findOne({ grup: grup }, function (err, res) {
-            var body = JSON.parse(JSON.stringify(res))
-            if (err) throw err;
-            // console.log(body)
-            client.emit('beginchat', (body));
-        })
-    })
-
-
-    client.on('getlogin', (objuser) => {
-        // userinfo.find({},function(err,res){
-        //     if (err) throw err;
-        //     res.map((item, index)=>{
-        //         if(item.email==objuser.email){
-        //             client.emit('getlogin',(item))
-        //         }
-        //     })
-        // })
-    });
     client.on('msgtochat', (objmsg) => {
+        console.log(objmsg)
         msg.findOne({ grup: objmsg.grup.toString() }, function (err, res) {
             if (err) throw err;
             var body = JSON.parse(JSON.stringify(res));
-            body.msgs.push(objmsg.msgs)
+            body.msgs.push(objmsg.msgs);
             // console.log(body)
             msg.update({ grup: body.grup.toString() }, body, function (err) {
                 if (err) throw err;
@@ -102,6 +80,7 @@ io.on('connection', (client) => {
         console.log('client disconnect')
     })
 });
+
 // choose img randomly
 imgRandom = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -277,7 +256,6 @@ let checkToken = function (req, res, next) {
                 next();
             }
         });
-
     } else {
         // if there is no token
         // return an error
@@ -321,19 +299,53 @@ app.post('/changeProfile', checkToken, function (req, res) {
 // ===== Delete profile
 app.post('/deleteProfile', checkToken, function (req, res) {
     var body = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     var usersc = mongoose.model('users', userschange);
     usersc.findByIdAndRemove({ _id: req.body.id }, function (err) {
         if (err) throw err;
     });
 });
 
-// ===== Test
+// ======Beginchat
+app.post('/beginchat', checkToken, function (req, res) {
+    var msg = mongoose.model('msgs', msgs);
+    msg.findOne({grup: req.body.grup}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+
+// ======GetLogin
+app.post('/getllogin', checkToken, function (req, res) {
+    var usersc = mongoose.model('users', userschange);
+    usersc.findOne({_id: req.decoded.id}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+
+app.post('/getimgtomsg', checkToken, function (req, res) {
+    var usersc = mongoose.model('users', userschange);
+    // console.log(req.body);
+    // User.findOne({_id: req.decoded.id}, (err, ressend) => {
+    //     if (err) throw err;
+    //
+    //     console.log(ressend)
+    //     res.json(ressend)
+    // })
+    usersc.findOne({name: req.body.name}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+
+// ======Test
 app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
         if (db_users) {
             // console.log(db_users);
+
             let body = {
                 name: db_users.name,
                 img: db_users.userImg,
@@ -385,9 +397,6 @@ app.post('/authenticate', function (req, res) {
 
     });
 });
-
-
-
 
 const port = 8001;
 io.listen(port);
