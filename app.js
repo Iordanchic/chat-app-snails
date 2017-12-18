@@ -183,59 +183,6 @@ app.post('/setup', function (req, res) {
 });
 
 
-
-// let respons = { emailValRes : false, nameRes : false, emailRes : false, addedToDb : false, token : '', name : '', email : '', isOwner : true };
-// function validateEmail(email) {
-//     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     return re.test(email);
-    
-// }
-// function validate() {
-//     var email = req.body.email;
-//     if (!validateEmail(email)) {
-//         return false;
-//     } else {
-//         return true;
-//     }
-// }
-// if (validate()) {
-//     respons.emailValRes = true;
-// }
-// User.find({name: req.body.name}, (err, name) => {
-//     if (err) console.log(err);
-//     if (!name.length) {
-//         respons.nameRes = true;
-//     }
-//     User.find({email: req.body.email}, (err, email) => {
-//         if (err) console.log(err);
-//         if (!email.length) {
-//             respons.emailRes = true;
-//             respons.addedToDb = true;
-//         }
-//         if (respons.emailValRes && respons.nameRes && respons.emailRes) {
-//             adduser();
-//             respons.name = req.body.name;
-//             respons.email = req.body.email;
-//             var token = jwt.sign(req.body, jwtSecret, { expiresIn: 60 * 30 });
-//             respons.token = token;
-//             res.send(JSON.stringify(respons));
-//         } else {
-//             res.send(JSON.stringify(respons));
-//         }
-//     })
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ==================Tokens requests ====================
 let checkToken = function (req, res, next) {
     // check header or url parameters or post parameters for token
@@ -367,12 +314,12 @@ app.post('/authenticate', function (req, res) {
         if (err) throw err;
 
         if (!user) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.json({ success: false, reason: 'user', message: 'Authentication failed. User not found.' });
         } else if (user) {
             // check if password matches
             if ( !user.validPassword(req.body.password)/*user.password != req.body.password*/) {
                 // console.log(user) 
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+                res.json({ success: false, reason: 'password', message: 'Authentication failed. Wrong password.' });
             } else {
                 // if user is found and password is right
                 // create a token
