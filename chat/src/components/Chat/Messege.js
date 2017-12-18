@@ -4,6 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 export default class Messege extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            img:null,
+            name:this.props.item.author
+        }
 
     }
 

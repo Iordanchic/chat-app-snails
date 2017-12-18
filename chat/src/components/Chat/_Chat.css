@@ -74,6 +74,8 @@
 .Text{
     word-wrap: break-word;
 }
+
+
 .loader,
 .loader:before,
 .loader:after {
