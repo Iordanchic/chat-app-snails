@@ -84,7 +84,7 @@ export default class Chat extends Component {
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
