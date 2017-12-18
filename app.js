@@ -1,7 +1,6 @@
 const express = require('express');
 var _ = require("lodash");
 var passport = require("passport");
-
 const app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -10,10 +9,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var url = 'mongodb://snail:snails@ds129386.mlab.com:29386/chat_db';
-
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User = require('./models/user'); // get our mongoose model
@@ -68,7 +65,6 @@ io.on('connection', (client) => {
         msg.findOne({ grup: grup }, function (err, res) {
             var body = JSON.parse(JSON.stringify(res))
             if (err) throw err;
-            // console.log(body)
             client.emit('beginchat', (body));
         })
     })
@@ -150,7 +146,6 @@ let checkToken = function (req, res, next) {
                 next();
             }
         });
-
     } else {
         // if there is no token
         // return an error
@@ -172,7 +167,7 @@ app.post('/changeProfile', checkToken, function (req, res) {
         });
     } else {
         // if (body.newname !== "") {
-            console.log("UPDATING")
+            // console.log("UPDATING")
             User.findById({ _id: req.body.id }, function (err, user) {
                 if (err) return handleError(err);
     
@@ -194,14 +189,32 @@ app.post('/changeProfile', checkToken, function (req, res) {
 // ===== Delete profile
 app.post('/deleteProfile', checkToken, function (req, res) {
     var body = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     var usersc = mongoose.model('users', userschange);
     usersc.findByIdAndRemove({ _id: req.body.id }, function (err) {
         if (err) throw err;
     });
 });
 
-// ===== Test
+// ======Beginchat
+app.post('/beginchat', checkToken, function (req, res) {
+    var msg = mongoose.model('msgs', msgs);
+    var a
+    msg.findOne({grup: req.body.grup}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+
+// ======GetLogin
+app.post('/getllogin', checkToken, function (req, res) {
+    var usersc = mongoose.model('users', userschange);
+    usersc.findOne({_id: req.decoded.id}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+// ======Test
 app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
@@ -258,9 +271,6 @@ app.post('/authenticate', function (req, res) {
 
     });
 });
-
-
-
 
 const port = 8001;
 io.listen(port);

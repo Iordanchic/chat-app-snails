@@ -1,13 +1,21 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link, Route, withRouter} from 'react-router-dom';
 import './_SelectRooms.css';
 
 export default class SelectRooms extends React.Component {
     constructor(props){
         super(props)
+        this.state={
+            grup:this.props.roomYouNow
+        }
 
     }
-
+    pushHistory = () =>{
+        // console.log(this.props.history)
+        this.props.shouldComponentUpdate(this.props.history.id)
+        this.setState({grup:this.props.history})
+        // console.log(this.state)
+    }
     render(){
         return(
             <div className="left-bar-wrapper  col-3">
@@ -25,10 +33,11 @@ export default class SelectRooms extends React.Component {
                             </div>
                         </div>
                         <div className="rooms-list col-12">
-                            <Link to={'/chat'} className="room-select">Room 1</Link>
+                            {/* {this.props.grups<1?<p>loading</p>:this.props.grups.map((item,index)=>{return <Link to={'/chat/'+item.grup} key={index} className="room-select" onClick={this.pushHistory}>{item.grup}</Link>})} */}
+                            {/* <Link to={'/chat'} className="room-select">Room 1</Link>
                             <Link to={'/chat'} className="room-select">Room 2</Link>
                             <Link to={'/chat'} className="room-select">Room 3</Link>
-                            <Link to={'/chat'} className="room-select">Room 4</Link>
+                            <Link to={'/chat'} className="room-select">Room 4</Link> */}
                         </div>
                     </div>
 

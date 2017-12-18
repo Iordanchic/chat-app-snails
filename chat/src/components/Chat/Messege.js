@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 export default class Messege extends Component {
     constructor(props) {
         super(props);
+            
     }
 
     render() {
@@ -18,7 +19,7 @@ export default class Messege extends Component {
                                  <div className="col-12">
                                      <div className="msg-top">
                                          <div className="row">
-                                             <p className="UserName col-9">{this.props.item.user} Vova</p>
+                                             <p className="UserName col-9">{this.props.item.author}</p>
                                              <div className="data-info col-3">
                                                  <p className='data-written'>written on  </p> <p className="Data"> {this.props.item.date}</p>
                                              </div>
