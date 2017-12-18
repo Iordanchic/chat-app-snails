@@ -10,7 +10,7 @@ export default class Messege extends Component {
         }
     }
     componentDidMount(){
-        var data = JSON.stringify({name:this.state.name, token: localStorage.getItem('user_token')});
+        var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
         fetch(`/getimgtomsg`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json"},
