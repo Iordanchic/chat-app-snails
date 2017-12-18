@@ -9,18 +9,45 @@ class SignUp extends React.Component {
         super(props)
 
     }
-    handleSignUp = () =>{
-        let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value});
+    handleSignUp = () => {
+        let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value, email: this.refs.email.value });
         fetch(`/setup`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
-        .then(res => res.json())
-        .then(res => {
-            console.log("res", res);
-
-        })
-        .catch(res => console.log('error'));
-        this.props.history.push('/login')
+            .then(res => res.json())
+            .then(res => {
+                console.log("res", res);
+                let valids = res.respons;
+                console.log(valids);
+                if (!valids.nameRes) {
+                    console.log("Ne tot nick");
+                    this.refs.login.style.borderBottom = "2px solid coral";
+                    if(!valids.emailValRes) {
+                        console.log("Ne tot email from nick");
+                        this.refs.email.style.borderBottom = "2px solid coral";
+                    }
+                }
+                else if (!valids.emailValRes) {
+                    console.log("Ne tot email");
+                    this.refs.email.style.borderBottom = "2px solid coral";
+                    
+                }
+                
+            })
+            .catch(res => console.log('error'));
+        // this.props.history.push('/login')
     }
-    render(){
+    
+    colorChangeName = () => {
+        console.log(this);
+        this.refs.login.style.borderBottom = "2px solid rgb(155, 154, 154)";
+
+    }
+    colorChangeEmail = () => {
+        console.log(this);
+        this.refs.email.style.borderBottom = "2px solid rgb(155, 154, 154)";
+
+    }
+
+    render() {
         return(
             <div className="container">
             <div className="row bg-color">
@@ -28,7 +55,9 @@ class SignUp extends React.Component {
                     <div className="login-form">
                         <h1> Sign Up </h1>
                         <label>Login:</label>
-                        <input ref="login" type="text" />
+                        <input onInput={this.colorChangeName} ref="login" type="text" />
+                        <label>Email:</label>
+                        <input onInput={this.colorChangeEmail} ref="email" type="email" />
                         <label>Password:</label>
                         <input ref="pass" type="password" />
                         <button onClick={this.handleSignUp}> Sign Up </button>
