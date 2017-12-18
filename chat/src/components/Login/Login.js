@@ -9,15 +9,6 @@ class Login extends Component {
         super(props);
     }
     handleLogin = () => {
-        // let data = JSON.stringify({ info: "Hello from client", name: "Petya"});
-        // fetch(`/aaa`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
-        // .then(res => res.json())
-        // .then(res => {
-
-        //     console.log("res", res)
-        // })
-        // .catch(res => console.log('error'));
-
         let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value});
         fetch(`/authenticate`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
         .then(res => res.json())
@@ -26,12 +17,10 @@ class Login extends Component {
                 let str = JSON.stringify(res);
                 localStorage.setItem("user_token", res.token)
                 this.props.history.push('/profile')
-            }
-            else if(res.success === false){
-                return
+            } else {
+                alert(res.message)
             }
             console.log("res", res);
-
 
         })
         .catch(res => console.log('error'));
