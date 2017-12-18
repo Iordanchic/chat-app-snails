@@ -199,14 +199,14 @@ app.post('/getllogin', checkToken, function (req, res) {
 
 app.post('/getimgtomsg', checkToken, function (req, res) {
     var usersc = mongoose.model('users', userschange);
-    console.log(req.name);
+    // console.log(req.body);
     // User.findOne({_id: req.decoded.id}, (err, ressend) => {
     //     if (err) throw err;
     //
     //     console.log(ressend)
     //     res.json(ressend)
     // })
-    usersc.findOne({name: req.name}, (err, ressend) => {
+    usersc.findOne({name: req.body.name}, (err, ressend) => {
         if (err) throw err;
         res.json(ressend)
     })
@@ -218,7 +218,7 @@ app.post('/test', checkToken, function (req, res) {
         if (err) throw err;
         if (db_users) {
             // console.log(db_users);
-            
+
             let body = {
                 name: db_users.name,
                 img: db_users.userImg,
