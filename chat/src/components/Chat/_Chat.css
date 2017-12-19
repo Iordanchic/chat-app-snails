@@ -71,6 +71,12 @@
     font-size: 13px;
 
 }
+.comment-delete{
+    color: red;
+}
+.comment-delete:hover{
+    cursor: pointer;
+}
 .Text{
     word-wrap: break-word;
 }

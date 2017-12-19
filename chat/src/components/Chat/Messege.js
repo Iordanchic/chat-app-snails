@@ -10,7 +10,10 @@ export default class Messege extends Component {
         }
 
     }
-
+    handleDeleteMsg = () => {
+        console.log(this.props.index)
+        this.props.deleteMsg(this.props.index)
+    }
     componentDidMount(){
         var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
         fetch(`/getimgtomsg`, {
@@ -40,7 +43,7 @@ export default class Messege extends Component {
                                          <div className="row">
                                              <p className="UserName col-9">{this.props.item.author}</p>
                                              <div className="data-info col-3">
-                                                 <p className='data-written'>written on  </p> <p className="Data"> {this.props.item.date}</p>
+                                                 <p className='data-written'>written on  </p> <p className="Data"> {this.props.item.date}</p> {this.props.owner ? <p onClick={this.handleDeleteMsg} className="data-written comment-delete">X</p>:null} 
                                              </div>
                                          </div>
                                      </div>
