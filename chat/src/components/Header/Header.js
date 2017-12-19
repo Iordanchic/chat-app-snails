@@ -35,8 +35,8 @@ export default class Header extends Component {
         return (
             <header>
                 <div className="header row">
-                    <Link to={'/chat/main'} style={{backgroundImage: 'url('+ require("../../img/logo.png")+')'}} className='logo col-3'></Link>
-                    <div className="profile-block col-2 offset-7">
+                    <Link to={'/chat/main'} style={{backgroundImage: 'url('+ require("../../img/logo.png")+')'}} className='logo col-5 col-sm-3'></Link>
+                    <div className="profile-block col-4 offset-3 col-sm-2 offset-sm-7">
                         {/*<div  className="profile-img" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>*/}
 
                         {/*{localStorage.getItem('user_token') !== null ? */}
