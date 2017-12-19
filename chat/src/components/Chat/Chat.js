@@ -90,15 +90,18 @@ export default class Chat extends Component {
                 <div className="row main-chat-row">
                     <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
-                        <div id="Allmsg">
+                        <div ref="Allmsg" id="Allmsg">
                             {this.state.msgs.length == 0?<p className='loader'>loading</p>:
-                                this.state.msgs.map((item,index) => {
-                                    return <Messege item={item} key={index} />
+                                this.state.msgs.map((item,index, arr) => {
+                                    // if(this.state.msgs.length == index){
+                                    //     return <Messege item={item} key={index} />    
+                                    // }
+                                    return <Messege item={item} key={index} arr={arr} index={index}/>
                                 })
                             }
                         </div>
                         <div className="chat-input">
-                            <Input user={this.state.author} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            <Input user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>
