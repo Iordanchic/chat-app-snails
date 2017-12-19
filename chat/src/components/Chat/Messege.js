@@ -5,10 +5,12 @@ export default class Messege extends Component {
     constructor(props) {
         super(props);
         this.state={
-            name:this.props.item.author,
-            img:null
+            img:null,
+            name:this.props.item.author
         }
+
     }
+
     componentDidMount(){
         var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
         fetch(`/getimgtomsg`, {
