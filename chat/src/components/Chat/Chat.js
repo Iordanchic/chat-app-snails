@@ -66,7 +66,6 @@ export default class Chat extends Component {
         })
         .then(res => res.json())
         .then(res => {
-            // console.log(res)
             this.setState({author:res.name, allgrup:res.grups})
         })
         .catch(err => console.log(err));
@@ -84,7 +83,6 @@ export default class Chat extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
@@ -93,21 +91,16 @@ export default class Chat extends Component {
                         <div ref="Allmsg" id="Allmsg">
                             {this.state.msgs.length == 0?<p className='loader'>loading</p>:
                                 this.state.msgs.map((item,index, arr) => {
-                                    // if(this.state.msgs.length == index){
-                                    //     return <Messege item={item} key={index} />    
-                                    // }
                                     return <Messege item={item} key={index} arr={arr} index={index}/>
                                 })
                             }
                         </div>
                         <div className="chat-input">
                             <Input user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
-
                         </div>
                     </div>
                 </div>
             </div>
-            // </div>
             
         )
     }

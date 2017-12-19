@@ -6,7 +6,9 @@ class SelectRooms extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            grup:this.props.roomYouNow
+            grup:this.props.roomYouNow,
+            users:[],
+            check:false
         }
 
     }
@@ -14,8 +16,27 @@ class SelectRooms extends React.Component {
         this.props.shouldComponentUpdate(this.props.history.id)
         this.setState({grup:this.props.history})
     }
+
+    getpeopleonchat = () =>{
+        var body = JSON.stringify({token:localStorage.getItem('user_token'), grup:this.state.grup})
+        if(this.state.check == false){
+            this.setState({check:true})
+            fetch(`/getpeopleonchat`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json"}, 
+                body: body
+            })
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res[7].grups)
+                res.map(item=>{item.grups?item.grups.map(i=>{i == this.state.grup?this.setState({users:[...this.state.users, item.name]}):null}):null})
+            })
+            .catch(err => console.log(err));
+        }
+    }
+
     render(){
-        // console.log(this.props.location.pathname, "/" + this.props.roomYouNow + "/grup")
+        console.log(this.state)
         return(
             <div className="left-bar-wrapper  col-3">
                 <div className="rooms">
@@ -33,8 +54,8 @@ class SelectRooms extends React.Component {
                         </div>
                         <div className="rooms-list col-12">
                             {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/grup" || this.props.location.pathname === "/chat/" + this.props.roomYouNow?this.props.allgrup.map(item => {return <Link to={'/chat/'+item} className="room-select" onClick={this.pushHistory}>{item}</Link>}):null}
-                            {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/people"?<p>all people</p>:null}
-                            {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/all"?<p>all</p>:null}
+                            {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/people"?<p>{this.getpeopleonchat()}{this.state.users.length == 0?<p className='loader'></p>:this.state.users.map(item=>{return <p>{item}</p>})}</p>:null}
+                            {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/all" || this.props.location.pathname === "/chat/" + this.props.roomYouNow?<p>{this.getpeopleonchat()}{this.state.users.length == 0?<p className='loader'></p>:this.state.users.map(item=>{return <p>{item}</p>})}{this.props.allgrup.map(item => {return <Link to={'/chat/'+item} className="room-select" onClick={this.pushHistory}>{item}</Link>})}</p>:null }
                             {/* {this.props.grups<1?<p>loading</p>:this.props.grups.map((item,index)=>{return <Link to={'/chat/'+item.grup} key={index} className="room-select" onClick={this.pushHistory}>{item.grup}</Link>})} */}
                             {/* <Link to={'/chat'} className="room-select">Room 1</Link>
                             <Link to={'/chat'} className="room-select">Room 2</Link>
