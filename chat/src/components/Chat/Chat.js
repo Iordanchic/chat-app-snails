@@ -29,7 +29,6 @@ export default class Chat extends Component {
             } else {
                 this.setState({access: true, user:res.name, img: res.img})
             }
-
         })
         .catch(err => console.log(err));
         super(props);
@@ -40,7 +39,32 @@ export default class Chat extends Component {
             author:"",
             userongrup:"",
             allgrup:[],
+            scrollCheck: true,
         }
+    }
+
+    deleteMsg = (i) => {
+        this.state.msgs.splice(i, 1);
+        this.setState({msgs: this.state.msgs});
+
+        let data = JSON.stringify({token: localStorage.getItem("user_token"), group: this.state.grup, index: i});
+        fetch(`/deleteMsgs`, { 
+            method: 'POST',
+            headers: { "Content-Type": "application/json"}, 
+            body: data
+        })
+        .then(res => res.json())
+        .then(res => {
+
+            console.log(res);
+
+        })
+        .catch(err => console.log(err));
+    }
+
+    scrollFunn = () => {
+        // this.state.scrollCheck ? this.refs.allmsg.scrollTop = this.refs.allmsg.scrollHeight : null;
+        this.refs.allmsg.scrollTop = this.refs.allmsg.scrollHeight;
     }
 
     getmsgs = () =>{
@@ -52,7 +76,8 @@ export default class Chat extends Component {
         })
         .then(res => res.json())
         .then(res => {
-            this.setState({msgs:res.msgs})
+            this.setState({msgs:res.msgs, scrollCheck: false})
+            this.refs.allmsg.scrollTop = this.refs.allmsg.scrollHeight;
         })
         .catch(err => console.log(err));
     };
@@ -84,19 +109,20 @@ export default class Chat extends Component {
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state.author)
+        
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
                     <SelectRooms allgrup={this.state.allgrup} roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
-                    <div className="App col-11 col-sm-10 col-md-9">
-                        <div ref="Allmsg" id="Allmsg">
+                    <div className="App col-9">
+                        <div ref="allmsg" id="Allmsg">
                             {this.state.msgs.length == 0?<p className='loader'>loading</p>:
                                 this.state.msgs.map((item,index, arr) => {
                                     // if(this.state.msgs.length == index){
                                     //     return <Messege item={item} key={index} />    
                                     // }
-                                    return <Messege item={item} key={index} arr={arr} index={index}/>
+                                    return <Messege deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
                                 })
                             }
                         </div>

@@ -252,6 +252,18 @@ app.post('/deleteProfile', checkToken, function (req, res) {
         if (err) throw err;
     });
 });
+// ===== Delete msg
+app.post('/deleteMsgs', checkToken, function (req, res) {
+    let body = req.body;
+    // console.log(body)
+    let msg = mongoose.model('msgs', msgs);
+    msg.findOne({grup: req.body.group}, function (err, db_msgs) {
+        if(err) throw err;
+        console.log('ONE MESSAGE');
+    })
+    // console.log(req.body)
+    res.json(req.body.token)
+});
 
 // ======Beginchat
 app.post('/beginchat', checkToken, function (req, res) {
