@@ -52,25 +52,25 @@ class SignUp extends React.Component {
 
     render() {
         return(
-            <div className="container">
-            <div className="row bg-color">
-                <div className="login-wrap">
-                    <div className="login-form">
-                        <h1> Sign Up </h1>
-                        <label>Login:</label>
-                        <input onFocus={this.colorChangeName} ref="login" type="text" />
-                        <label>Email:</label>
-                        <input onFocus={this.colorChangeEmail} ref="email" type="email" />
-                        <label>Password:</label>
-                        <input ref="pass" type="password" />
-                        <button onClick={this.handleSignUp}> Sign Up </button>
-                        <br />
-                        <Link to={"/login"}>Already got an account? </Link>
-                        {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
+            <div className="bg-color">
+                <div className="row">
+                    <div className="col-12 login-wrap">
+                        <div className="login-form">
+                            <h1> Sign Up </h1>
+                            <label>Login:</label>
+                            <input onFocus={this.colorChangeName} ref="login" type="text" />
+                            <label>Email:</label>
+                            <input onFocus={this.colorChangeEmail} ref="email" type="email" />
+                            <label>Password:</label>
+                            <input ref="pass" type="password" />
+                            <button onClick={this.handleSignUp}> Sign Up </button>
+                            <br />
+                            <Link to={"/login"}>Already got an account? </Link>
+                            {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         )
 
     }
