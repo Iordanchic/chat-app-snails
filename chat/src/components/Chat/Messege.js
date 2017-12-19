@@ -32,10 +32,10 @@ export default class Messege extends Component {
         return (
                 <div className="OneMsg">
                    <div className="row ">
-                       <div className="col-1">
+                       <div className="col-12 col-sm-2 col-md-1">
                            <div className="LogoUser" style={this.state.img === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
                        </div>
-                       <div className="col-11">
+                       <div className="col-12 col-sm-10 col-md-11">
                            <div className="Msg">
                               <div className="row">
                                  <div className="col-12">

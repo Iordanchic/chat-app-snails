@@ -4,32 +4,47 @@ import './_SelectRooms.css';
 
 class SelectRooms extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             grup:this.props.roomYouNow
         }
 
     }
     pushHistory = () =>{
-        this.props.shouldComponentUpdate(this.props.history.id)
+        this.props.shouldComponentUpdate(this.props.history.id);
         this.setState({grup:this.props.history})
-    }
+    };
+    myFunction = () => {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    };
     render(){
         // console.log(this.props.location.pathname, "/" + this.props.roomYouNow + "/grup")
         return(
-            <div className="left-bar-wrapper  col-3">
+            <div className="left-bar-wrapper col-1 col-sm-2 col-md-3">
                 <div className="rooms">
                     <div className="row">
-                        <div className="top-selector col-12 text-center">
+
+                        {/*<div className="topnav" id="myTopnav">*/}
+                            {/*<Link to={'/chat/'+this.props.roomYouNow+"/people"} className='active select-img'><i className="fa fa-users" aria-hidden="true"></i></Link>*/}
+                            {/*<Link to={'/chat/'+this.props.roomYouNow+"/people"} className=' select-img' ><i className="fa fa-users" aria-hidden="true"></i></Link>*/}
+                            {/*<Link to={'/chat/'+this.props.roomYouNow+"/people"} className=' select-img' ><i className="fa fa-users" aria-hidden="true"></i></Link>*/}
+                            {/*<Link to={'javascript:void(0);'} className="icon" onClick={this.myFunction}>&#9776;</Link>*/}
+                        {/*</div>*/}
+                        <div className=" top-selector col-12 d-flex justify-content-around">
                             <div className="type-select">
                                 <Link to={'/chat/'+this.props.roomYouNow+"/people"} className='select-img select-ppl'><i className="fa fa-users" aria-hidden="true"></i></Link>
                             </div>
                             <div className="type-select">
                                 <Link to={'/chat/'+this.props.roomYouNow+"/grup"}  className='select-img select-groups'><i className="fa fa-comments-o" aria-hidden="true"></i></Link>
                             </div>
-                            <div className="type-select">
-                                <Link to={'/chat/'+this.props.roomYouNow+"/all"}  className='select-img select-all'><i className="fa fa-files-o" aria-hidden="true"></i></Link>
-                            </div>
+                            {/*<div className="type-select">*/}
+                                {/*<Link to={'/chat/'+this.props.roomYouNow+"/all"}  className='select-img select-all'><i className="fa fa-files-o" aria-hidden="true"></i></Link>*/}
+                            {/*</div>*/}
                         </div>
                         <div className="rooms-list col-12">
                             {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/grup" || this.props.location.pathname === "/chat/" + this.props.roomYouNow?this.props.allgrup.map(item => {return <Link to={'/chat/'+item} className="room-select" onClick={this.pushHistory}>{item}</Link>}):null}

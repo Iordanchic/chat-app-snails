@@ -93,7 +93,7 @@
 }
 
 .profile-btns-wrapper {
-    margin-top: 80px;
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -115,6 +115,10 @@
 
 .modal-none{
     display: none;
+}
+.unsaved{
+    background: #00c3c3 !important;
+    color: #07023e !important;
 }
 /*.loader,*/
 /*.loader:before,*/
