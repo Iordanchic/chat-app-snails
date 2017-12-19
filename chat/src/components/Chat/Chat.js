@@ -39,7 +39,7 @@ export default class Chat extends Component {
             msgs:[],
             author:"",
             userongrup:"",
-            allgrup:[{grup:"main"},{grup:"main2"}]
+            allgrup:[],
         }
     }
 
@@ -67,7 +67,7 @@ export default class Chat extends Component {
         .then(res => res.json())
         .then(res => {
             // console.log(res)
-            this.setState({author:res.name})
+            this.setState({author:res.name, allgrup:res.grups})
         })
         .catch(err => console.log(err));
     };
@@ -84,11 +84,11 @@ export default class Chat extends Component {
     }
 
     render() {
-        // console.log(this.state)
+        console.log(this.state)
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
-                    <SelectRooms roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
+                    <SelectRooms allgrup={this.state.allgrup} roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div ref="Allmsg" id="Allmsg">
                             {this.state.msgs.length == 0?<p className='loader'>loading</p>:
