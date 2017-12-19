@@ -20,13 +20,12 @@ export default class Messege extends Component {
             })
             .then(res => res.json())
             .then(res => {
-                console.log("res", res);
                 this.setState({img: res.userImg})
             })
             .catch(err => console.log(err));
     }
+
     render() {
-        // console.log(this.props.item["msgs"]);
         return (
                 <div className="OneMsg">
                    <div className="row ">
@@ -45,13 +44,13 @@ export default class Messege extends Component {
                                              </div>
                                          </div>
                                      </div>
-
                                  </div>
                                   <p className="Text col-12">{this.props.item.msg}</p>
                               </div>
                            </div>
                        </div>
                    </div>
+                   {this.props.arr[this.props.index+1]?this.props.arr[this.props.index+1].date !== this.props.item.date?<div className="lineDate">{this.props.item.date}</div>:null:null}
                 </div>
         )
     }

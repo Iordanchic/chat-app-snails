@@ -9,38 +9,64 @@ class Login extends Component {
         super(props);
     }
     handleLogin = () => {
+        let loginValue = this.refs.login.value;
+        let passValue = this.refs.pass.value;
+        // console.log(!passValue.includes(' '))
+       
+        if(
+            loginValue.length    < 15
+            && loginValue.length >= 2
+            && !loginValue.includes(' ')
+            && passValue.length  < 15
+            && passValue.length  >= 2
+            && !passValue.includes(' ')
+            
+        ){
         let data = JSON.stringify({ name: this.refs.login.value, password: this.refs.pass.value});
-        fetch(`/authenticate`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: data })
+        fetch(`/authenticate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: data })
         .then(res => res.json())
         .then(res => {
             if(res.success === true){
                 let str = JSON.stringify(res);
-                localStorage.setItem("user_token", res.token)
+                localStorage.setItem('user_token', res.token)
                 this.props.history.push('/profile')
             } else {
-                alert(res.message)
+                if (res.reason === 'user') {
+                    this.refs.login.style.borderBottom = "2px solid red";
+                } else {
+                    this.refs.pass.style.borderBottom = "2px solid red";
+                }
             }
-            console.log("res", res);
+            console.log('res', res);
 
         })
         .catch(res => console.log('error'));
 
+        } else {
+            alert('Присутствуют недопустимые символы')
+        }
     }
 
+    colorChangeName = () => {
+        this.refs.login.style.borderBottom = '2px solid rgb(155, 154, 154)';
+    }
+    colorChangePass = () => {
+        this.refs.pass.style.borderBottom = '2px solid rgb(155, 154, 154)';
+    }
     render() {
         return (
-            <div className="container">
-                <div className="row bg-color">
-                    <div className="login-wrap">
-                        <div className="login-form">
+            <div className='container'>
+                <div className='row bg-color'>
+                    <div className='login-wrap'>
+                        <div className='login-form'>
                             <h1> Welcome back</h1>
                             <label>Login:</label>
-                            <input ref="login" type="text" />
+                            <input onFocus={this.colorChangeName} ref='login' type='text' />
                             <label>Password:</label>
-                            <input ref="pass" type="password" />
+                            <input onFocus={this.colorChangePass} ref='pass' type='password' />
                             <button onClick={this.handleLogin}> Enter </button>
                             <br />
-                            <Link to={"signup"}>Sign Up </Link>
+                            <Link to={'signup'}>Sign Up </Link>
                             {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
                         </div>
                     </div>

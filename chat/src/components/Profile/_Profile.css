@@ -4,6 +4,7 @@
 }
 .profile-wrapper button{
     outline: none;
+    border: none;
 }
 .profile-wrapper button:active{
     outline: none;
