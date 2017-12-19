@@ -55,9 +55,9 @@ class Login extends Component {
     }
     render() {
         return (
-            <div className='container'>
-                <div className='row bg-color'>
-                    <div className='login-wrap'>
+            <div className=' bg-color'>
+                <div className="row">
+                    <div className='col-12 login-wrap'>
                         <div className='login-form'>
                             <h1> Welcome back</h1>
                             <label>Login:</label>
