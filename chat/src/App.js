@@ -3,15 +3,16 @@ import {Route, Switch} from 'react-router-dom';
 
 import './App.css';
 
-import MainLayout  from './components/MainLayout';
-import Login       from './components/Login/Login'
-import Header      from "./components/Header/Header";
-import Chat        from "./components/Chat/Chat";
-import Welcome     from "./components/Welcome/Welcome";
-import Footer      from "./components/Footer/Footer";
-import Profile     from "./components/Profile/Profile";
-import SelectRooms from "./components/SelectRooms/SelectRooms";
-import SignUp      from './components/Signup/SignUp';
+import MainLayout    from './components/MainLayout';
+import Login         from './components/Login/Login'
+import Header        from "./components/Header/Header";
+import Chat          from "./components/Chat/Chat";
+import Welcome       from "./components/Welcome/Welcome";
+import Footer        from "./components/Footer/Footer";
+import Profile       from "./components/Profile/Profile";
+import SelectRooms   from "./components/SelectRooms/SelectRooms";
+import SelectRoomsXS from "./components/SelectRoomsXS/SelectRoomsXS";
+import SignUp        from "./components/Signup/SignUp";
 
 import Atest from "./components/Atest/Atest"
 
@@ -62,6 +63,7 @@ class App extends Component {
                     <Route exact path='/' component={Welcome} />
                     <Route path='/login' component={Login} />
                     <Route path='/signup' component={SignUp} />
+                    <Route path='/room-select' component={SelectRoomsXS} />
                     {/* <Route path='/chat' render={() => <Chat getUserInfo={this.getUserInfo}/>} /> */}
                     {localStorage.getItem("user_token")? <Route path='/chat/:id' component={Chat} />: <Route path='/chat' render={()=> <h1>404 ERROR</h1>}/>}
                     {/* <Route path='/chat/:id' component={Chat} />} /> */}
