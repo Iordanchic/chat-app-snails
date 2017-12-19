@@ -74,7 +74,13 @@
 .Text{
     word-wrap: break-word;
 }
-
+.lineDate{
+    color: #adb5b8;
+    font-size: 13px;
+    line-height: 30px;
+    width: 68px;
+    margin: auto;
+}
 
 .loader,
 .loader:before,

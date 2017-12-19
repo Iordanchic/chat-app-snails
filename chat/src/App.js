@@ -7,6 +7,7 @@ import MainLayout  from './components/MainLayout';
 import Login       from './components/Login/Login'
 import Header      from "./components/Header/Header";
 import Chat        from "./components/Chat/Chat";
+import Welcome     from "./components/Welcome/Welcome";
 import Footer      from "./components/Footer/Footer";
 import Profile     from "./components/Profile/Profile";
 import SelectRooms from "./components/SelectRooms/SelectRooms";
@@ -58,6 +59,7 @@ class App extends Component {
             <MainLayout>
                 <Header/>
                 <Switch>
+                    <Route exact path='/' component={Welcome} />
                     <Route path='/login' component={Login} />
                     <Route path='/signup' component={SignUp} />
                     {/* <Route path='/chat' render={() => <Chat getUserInfo={this.getUserInfo}/>} /> */}
