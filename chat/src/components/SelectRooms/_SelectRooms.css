@@ -4,6 +4,7 @@
 .top-selector{
     /*margin: 0 auto;*/
     /*height: 155px;*/
+    padding-bottom: 20px;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -29,11 +30,11 @@
 .rooms-list{
     max-height: 100%;
     overflow-y: scroll;
-    height: calc(100% - 155px);
+    height: calc(100% - 65px);
     width: 100%;
-    /*display: flex;*/
-    /*flex-wrap: wrap;*/
-    /*justify-content: center;*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .room-select{
     cursor: pointer;
@@ -58,7 +59,17 @@
     text-decoration: none;
 }
 
+.sidebar-ppl > div{
+    height: 65px;
 
+}
+.sidebar-ppl>div>div, .sidebar-ppl p{
+    margin: auto;
+    text-align: center;
+}
+.sidebar-ppl p{
+    color: #ff6c00;
+}
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #333;

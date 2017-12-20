@@ -132,7 +132,7 @@ class Profile extends Component {
                             <div className="profile-left-sidebar col-12 col-md-3">
                                 <div className="row">
                                     <button className="profile-btn user-account col-12">User account</button>
-                                    <button className="profile-btn exit-account col-12" onClick={this.addgrup}>Add grup</button>
+                                    <button className="profile-btn exit-account col-12" onClick={this.addgrup}>Add group</button>
                                     <button className="profile-btn exit-account col-12" onClick={this.handleLogOut}>Logout</button>
                                 </div>
                             </div>
