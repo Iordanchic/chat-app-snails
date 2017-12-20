@@ -110,19 +110,22 @@ export default class Chat extends Component {
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
                     <SelectRooms allgrup={this.state.allgrup} roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
-                    <div className="App col-9">
-                        <div ref="allmsg" id="Allmsg">
-                            {this.state.msgs.length === 0?<p className='loader'>loading</p>:
-                                this.state.msgs.map((item,index, arr) => {
-                                    // if(this.state.msgs.length == index){
-                                    //     return <Messege item={item} key={index} />    
-                                    // }
-                                    return <Messege userImg={item.img} deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
-                                })
-                            }
-                        </div>
-                        <div className="chat-input">
-                            <Input userImg={this.state.img} user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                    <div className="col-11 col-sm-9">
+                        <div className="App">
+                            <div ref="allmsg" id="Allmsg">
+                                {this.state.msgs.length == 0?<p className='loader'>loading</p>:
+                                    this.state.msgs.map((item,index, arr) => {
+                                        // if(this.state.msgs.length == index){
+                                        //     return <Messege item={item} key={index} />
+                                        // }
+                                        return <Messege  userImg={item.img} deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
+                                    })
+                                }
+                            </div>
+                            <div className="chat-input">
+                                <Input userImg={this.state.img} user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            </div>
+
                         </div>
                     </div>
                 </div>

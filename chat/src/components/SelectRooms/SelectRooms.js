@@ -31,27 +31,29 @@ class SelectRooms extends React.Component {
             .then(res => res.json())
             .then(res => {
                 // console.log(res[7].grups)
-                res.map(item=>{return item.grups?item.grups.map(i=>{i === this.state.grup?this.setState({users:[...this.state.users, item.name]}):null}):null})
+                console.log(res)
+                res.map( item =>
+                {return item.grups?item.grups.map( i => {i === this.state.grup?this.setState({users:[...this.state.users, {name: item.name, onlineImg: item.userImg}]}):null}):null}
+                );
             })
             .catch(err => console.log(err));
         }
-    }
-
-    myFunction = () => {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
     };
 
+    // myFunction = () => {
+    //     var x = document.getElementById("myTopnav");
+    //     if (x.className === "topnav") {
+    //         x.className += " responsive";
+    //     } else {
+    //         x.className = "topnav";
+    //     }
+    // };
+
     render(){
-        // console.log(this.state)
         return(
             <div className="left-bar-wrapper col-1 col-sm-2 col-md-3">
                 <div className="rooms">
-                    <div className="row">
+                    <div className="">
 
                         {/*<div className="topnav" id="myTopnav">*/}
                             {/*<Link to={'/chat/'+this.props.roomYouNow+"/people"} className='active select-img'><i className="fa fa-users" aria-hidden="true"></i></Link>*/}
@@ -59,7 +61,7 @@ class SelectRooms extends React.Component {
                             {/*<Link to={'/chat/'+this.props.roomYouNow+"/people"} className=' select-img' ><i className="fa fa-users" aria-hidden="true"></i></Link>*/}
                             {/*<Link to={'javascript:void(0);'} className="icon" onClick={this.myFunction}>&#9776;</Link>*/}
                         {/*</div>*/}
-                        <div className=" top-selector col-12 d-flex justify-content-around">
+                        <div className=" top-selector">
                             <div className="type-select">
                                 <Link to={'/chat/'+this.props.roomYouNow+"/people"} className='select-img select-ppl'><i className="fa fa-users" aria-hidden="true"></i></Link>
                             </div>
@@ -70,10 +72,10 @@ class SelectRooms extends React.Component {
                                 <Link to={'/chat/'+this.props.roomYouNow+"/all"}  className='select-img select-all'><i className="fa fa-files-o" aria-hidden="true"></i></Link>
                             </div> */}
                         </div>
-                        <div className="rooms-list col-12">
+                        <div className="rooms-list">
                             {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/grup" || this.props.location.pathname === "/chat/" + this.props.roomYouNow?this.props.allgrup.map((item, i) => {return <Link key={i} to={'/chat/'+item} className="room-select" onClick={this.pushHistory}>{item}</Link>}):null}
-                                {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/people"?<div>{this.getpeopleonchat()}
-                            {this.state.users.length === 0?<p className='loader'></p>:this.state.users.map((item,index)=>{return <div key={index}><div className="LogoUser" style={this.state.img === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div><p key={index} >{item}</p></div>})}</div>:null}
+                                {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/people"?<div className='sidebar-ppl'>{this.getpeopleonchat()}
+                            {this.state.users.length === 0?<p className='loader'></p>:this.state.users.map((item,index)=>{return <div key={index}><div className="LogoUser" style={item.onlineImg === null ? null : {backgroundImage: 'url('+ require("../../img/"+item.onlineImg+".jpg")+')'}}></div><p key={index} >{item.name}</p></div>})}</div>:null}
                             {/* {this.props.location.pathname === "/chat/" + this.props.roomYouNow + "/all" || this.props.location.pathname === "/chat/" + this.props.roomYouNow?
                                 <p>{this.getpeopleonchat()}{this.state.users.length == 0?<p className='loader'></p>:
                                 this.state.users.map((item,index)=>{return <div><div className="LogoUser" style={this.state.img === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div><p key={index}>{item}</p></div>})}{this.props.allgrup.map(item => {return <Link to={'/chat/'+item} className="room-select" onClick={this.pushHistory}>{item}</Link>})}</p>:null } */}

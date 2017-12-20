@@ -344,7 +344,11 @@ app.post('/getpeopleonchat', checkToken, function (req, res) {
     // var usersc = mongoose.model('users', userschange);
     User.find({grup: res.body}, (err, ressend) => {
         if (err) throw err;
-        res.json(ressend)
+
+        var ressendb = JSON.parse(JSON.stringify(ressend));
+        console.log(ressendb)
+        res.json(ressendb)
+
     })
 });
 // ======Get Img to Msg
