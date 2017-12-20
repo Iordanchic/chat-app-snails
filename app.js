@@ -38,7 +38,22 @@ var msgs = mongoose.Schema({
     }],
 });
 var users = mongoose.Schema({
-    
+    name: {
+		type: String,
+		required: true,
+	}, 
+	password: {
+		type: String,
+		required: true,
+	}, 
+	email: {
+		type: String,
+		required: true,
+	},
+	grups: Array, 
+	admin: Boolean,
+	userImg: String,
+	grups:[]
 });
 var userschange = mongoose.Schema({
     name: String,
@@ -267,6 +282,7 @@ app.post('/deleteMsgs', checkToken, function (req, res) {
 // ======addNewGrup
 app.post('/addNewGrup', checkToken, function (req, res) {
     var msg = mongoose.model('msgs', msgs);
+    // var use = mongoose.model('users', users);
     var grup = new msg({
         grup:req.body.grup.toString(),
         admin:req.body.admin.toString(),
@@ -279,8 +295,19 @@ app.post('/addNewGrup', checkToken, function (req, res) {
     })
     grup.save((err) => {
         if (err) throw err;
-        res.json("")
     })
+    req.body.users.map(item => {
+        User.findOne({name: item.name.toString()}, function (err, dt) {
+            if(err) throw err;
+            var b=JSON.parse(JSON.stringify(dt))
+            b.grups.push(req.body.grup)
+            console.log(b)
+            User.update({name: item.name}, b, function (err) {
+                if (err) throw err;
+            });
+        })
+    })
+    res.json("")
 });
 
 // ======Beginchat
@@ -292,10 +319,21 @@ app.post('/beginchat', checkToken, function (req, res) {
     })
 });
 
+// ======SearchUser
+app.post('/searchuser', checkToken, function (req, res) {
+    // var us = mongoose.model('users', users);
+    User.findOne({name: req.body.user}, (err, ressend) => {
+        if (err) throw err;
+        // console.log(ressend)
+        res.json(ressend)
+    })
+});
+
+
 // ======GetLogin
 app.post('/getllogin', checkToken, function (req, res) {
-    var usersc = mongoose.model('users', userschange);
-    usersc.findOne({_id: req.decoded.id}, (err, ressend) => {
+    // var usersc = mongoose.model('users', userschange);
+    User.findOne({_id: req.decoded.id}, (err, ressend) => {
         if (err) throw err;
         res.json(ressend)
     })
@@ -303,8 +341,8 @@ app.post('/getllogin', checkToken, function (req, res) {
 
 // ======GetAllPeopleOnChat
 app.post('/getpeopleonchat', checkToken, function (req, res) {
-    var usersc = mongoose.model('users', userschange);
-    usersc.find({grup: res.body}, (err, ressend) => {
+    // var usersc = mongoose.model('users', userschange);
+    User.find({grup: res.body}, (err, ressend) => {
         if (err) throw err;
 
         var ressendb = JSON.parse(JSON.stringify(ressend));
