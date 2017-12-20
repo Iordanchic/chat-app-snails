@@ -23,6 +23,7 @@ class Profile extends Component {
             })
             .catch(err => console.log(err));
         this.state = {
+            addgrup: false,
             access: null,
             name: null,
             img: null,
@@ -76,25 +77,73 @@ class Profile extends Component {
         });
     };
 
+    addgrup = () =>{
+        if(this.state.addgrup == false){
+            this.setState({addgrup:true})
+        }else{
+            this.setState({addgrup:false})
+        }
+    }
+
+    handleAdd = () =>{
+        let data = JSON.stringify({grup:this.refs.grup.value, admin:this.state.name, token: localStorage.getItem("user_token")});
+        fetch(`/addNewGrup`, { 
+            method: 'POST', 
+            headers: { "Content-Type": "application/json"}, 
+            body: data
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+
+            })
+            .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <div className='profile-container'>
                 {this.state.access === null? <h1 className='loader'> Loading </h1> : this.state.access === true?
                     <div className="profile-wrapper">
+                    {this.state.addgrup==true?
+
+                    //====== Add new grup
+                        <div className="row">
+                            <h1 className='profile-heading col-sm-12'>Add grup</h1>
+                            <div className="profile-left-sidebar col-12 col-md-3">
+                                <div className="row">
+                                    <button className="profile-btn exit-account col-12" onClick={this.addgrup}>Return to profile</button>
+                                </div>
+                            </div>
+                            <div className="profile-main col-12 col-md-8">
+                                <div className="profile-info-wrapper col-12 col-md-7">
+                                    <label htmlFor="login-edit">Name of the grup:</label>
+                                    <input ref='grup' className="profile-info login-edit" name='login-edit' defaultValue="" required/>
+                                </div>
+                                <div className="profile-btns-wrapper col-12">
+                                    <button className={this.state.saveBtn === true ? "profile-save unsaved" : "profile-save"} onClick={this.handleAdd}>Add</button>
+                                </div>
+                            </div>
+                        </div>:
+
+                    //====== Profile
                         <div className="row">
                             <h1 className='profile-heading col-sm-12'>Profile settings</h1>
                             <div className="profile-left-sidebar col-12 col-md-3">
                                 <div className="row">
                                     <button className="profile-btn user-account col-12">User account</button>
+                                    <button className="profile-btn exit-account col-12" onClick={this.addgrup}>Add grup</button>
                                     <button className="profile-btn exit-account col-12" onClick={this.handleLogOut}>Logout</button>
                                 </div>
                             </div>
+
                             <div className={this.state.modalVisibility ? "modal-window col-12" : "modal-none" +
                                 " modal-window col-12"}>
                                 <h1>Choose your new account image:</h1>
                                 <div className="row">
                                     <div className="col-12">
                                         <div className="profile-img-edit-block d-flex justify-content-center flex-wrap">
+
                                             {this.state.imgArr.map((item, i) => {
                                                 return <ProfileImg data={null} key={i} item={item} i={i} handleImgChoose={this.handleImgChoose}/>
                                             })}
@@ -142,6 +191,7 @@ class Profile extends Component {
                                 </div>
                             </div>
                         </div>
+                    }
                     </div>: <h1> Access DENIED. Log in please </h1>}
             </div>
 

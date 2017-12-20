@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 
 export default class Messege extends Component {
     constructor(props) {
@@ -14,26 +14,26 @@ export default class Messege extends Component {
         console.log(this.props.index)
         this.props.deleteMsg(this.props.index)
     }
-    componentDidMount(){
-        var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
-        fetch(`/getimgtomsg`, {
-                method: 'POST',
-                headers: { "Content-Type": "application/json"},
-                body: data
-            })
-            .then(res => res.json())
-            .then(res => {
-                this.setState({img: res.userImg})
-            })
-            .catch(err => console.log(err));
-    }
+    // componentDidMount(){
+    //     var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
+    //     fetch(`/getimgtomsg`, {
+    //             method: 'POST',
+    //             headers: { "Content-Type": "application/json"},
+    //             body: data
+    //         })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             this.setState({img: res.userImg})
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
     render() {
         return (
                 <div className="OneMsg">
                    <div className="row ">
                        <div className="col-12 col-sm-2 col-md-1">
-                           <div className="LogoUser" style={this.state.img === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
+                           <div className="LogoUser" style={this.props.userImg === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.props.userImg+".jpg")+')'}}></div>
                        </div>
                        <div className="col-12 col-sm-10 col-md-11">
                            <div className="Msg">

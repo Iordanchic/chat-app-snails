@@ -7,9 +7,6 @@ import React, { Component } from 'react';
 
 
 export default class Chat extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     msgon = (event) =>{
         if(event.key === 'Enter'){
@@ -18,7 +15,8 @@ export default class Chat extends Component {
                 msgs:{
                     date:"",
                     msg:"",
-                    author:this.props.user
+                    author:this.props.user,
+                    img: this.props.userImg,
                 }   
             };
             var b=new Date()
