@@ -30,7 +30,8 @@ class Profile extends Component {
             modalVisibility: false,
             saveBtn: false,
             imgArr: ['icon1', 'icon2', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'],
-            chosenImg: null
+            chosenImg: null,
+            userstogrup:[]
         }
     }
 
@@ -86,7 +87,7 @@ class Profile extends Component {
     }
 
     handleAdd = () =>{
-        let data = JSON.stringify({grup:this.refs.grup.value, admin:this.state.name, token: localStorage.getItem("user_token")});
+        let data = JSON.stringify({grup:this.refs.grup.value, admin:this.state.name, token: localStorage.getItem("user_token"), users:this.state.userstogrup});
         fetch(`/addNewGrup`, { 
             method: 'POST', 
             headers: { "Content-Type": "application/json"}, 
@@ -100,7 +101,26 @@ class Profile extends Component {
             .catch(err => console.log(err));
     }
 
+    search = () =>{
+        let data = JSON.stringify({user:this.refs.user.value, token: localStorage.getItem("user_token")});
+        fetch(`/searchuser`, { 
+            method: 'POST', 
+            headers: { "Content-Type": "application/json"}, 
+            body: data
+        })
+            .then(res => res.json())
+            .then(res => {
+                if(this.state.userstogrup === null){
+                    this.setState({userstogrup:[...this.state.userstogrup, res]})
+                }else if(this.state.userstogrup.findIndex(i => i.name === res.name) === -1){
+                    this.setState({userstogrup:[...this.state.userstogrup, res]})
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
     render() {
+        console.log(this.state.userstogrup)
         return (
             <div className='profile-container'>
                 {this.state.access === null? <h1 className='loader'> Loading </h1> : this.state.access === true?
@@ -109,19 +129,31 @@ class Profile extends Component {
 
                     //====== Add new grup
                         <div className="row">
-                            <h1 className='profile-heading col-sm-12'>Add grup</h1>
+                            <h1 className='profile-heading col-sm-12'>Add group</h1>
                             <div className="profile-left-sidebar col-12 col-md-3">
                                 <div className="row">
                                     <button className="profile-btn exit-account col-12" onClick={this.addgrup}>Return to profile</button>
                                 </div>
                             </div>
                             <div className="profile-main col-12 col-md-8">
-                                <div className="profile-info-wrapper col-12 col-md-7">
-                                    <label htmlFor="login-edit">Name of the grup:</label>
-                                    <input ref='grup' className="profile-info login-edit" name='login-edit' defaultValue="" required/>
-                                </div>
-                                <div className="profile-btns-wrapper col-12">
-                                    <button className={this.state.saveBtn === true ? "profile-save unsaved" : "profile-save"} onClick={this.handleAdd}>Add</button>
+                                <div className="row">
+                                    <div className="col-12 col-md-7">
+                                        <div className="profile-info-wrapper">
+                                            <label htmlFor="login-edit">Name of the group:</label>
+                                            <input ref='grup' className="profile-info login-edit" name='login-edit' defaultValue="" required/>
+                                            <label htmlFor="login-edit">Add user:</label>
+                                            <input ref='user' className="profile-info login-edit" name='login-edit' defaultValue="" required/>
+                                            <button className="profile-btn exit-account col-12" onClick={this.search}>Search user</button>
+                                            <div>
+                                                <ul>
+                                                    {this.state.userstogrup === null?<li>null</li>:this.state.userstogrup.map((item,index) => {return <li key={index}><div className="LogoUser" style={{backgroundImage: 'url('+ require("../../img/"+item.userImg+".jpg")+')'}}></div>{item.name}</li>})}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="profile-btns-wrapper col-12">
+                                        <button className={this.state.saveBtn === true ? "profile-save unsaved" : "profile-save"} onClick={this.handleAdd}>Add</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>:
