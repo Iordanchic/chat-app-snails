@@ -109,7 +109,7 @@ class Profile extends Component {
 
                     //====== Add new grup
                         <div className="row">
-                            <h1 className='profile-heading col-sm-12'>Add grup</h1>
+                            <h1 className='profile-heading col-sm-12'>Add group</h1>
                             <div className="profile-left-sidebar col-12 col-md-3">
                                 <div className="row">
                                     <button className="profile-btn exit-account col-12" onClick={this.addgrup}>Return to profile</button>
@@ -117,7 +117,7 @@ class Profile extends Component {
                             </div>
                             <div className="profile-main col-12 col-md-8">
                                 <div className="profile-info-wrapper col-12 col-md-7">
-                                    <label htmlFor="login-edit">Name of the grup:</label>
+                                    <label htmlFor="login-edit">Name of the group:</label>
                                     <input ref='grup' className="profile-info login-edit" name='login-edit' defaultValue="" required/>
                                 </div>
                                 <div className="profile-btns-wrapper col-12">
