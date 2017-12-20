@@ -243,7 +243,7 @@ app.post('/changeProfile', checkToken, function (req, res) {
         // });
     }
 });
-// ===== Delete profile
+// ===== Delete profile (Class: Profile)
 app.post('/deleteProfile', checkToken, function (req, res) {
     var body = req.body;
     // console.log(req.body)
@@ -252,7 +252,7 @@ app.post('/deleteProfile', checkToken, function (req, res) {
         if (err) throw err;
     });
 });
-// ===== Delete msg
+// ===== Delete msg (Class: Chat)
 app.post('/deleteMsgs', checkToken, function (req, res) {
     let body = req.body;
     // console.log(body)
@@ -303,11 +303,10 @@ app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
         if (db_users) {
-            // console.log(db_users);
-
             let body = {
                 name: db_users.name,
                 img: db_users.userImg,
+                groups: db_users.grups,
                 id: req.decoded.id
             }
             res.json(body)
