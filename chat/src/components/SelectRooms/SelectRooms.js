@@ -35,7 +35,7 @@ class SelectRooms extends React.Component {
                             {/*<Link to={'/chat/'+this.props.roomYouNow+"/people"} className=' select-img' ><i className="fa fa-users" aria-hidden="true"></i></Link>*/}
                             {/*<Link to={'javascript:void(0);'} className="icon" onClick={this.myFunction}>&#9776;</Link>*/}
                         {/*</div>*/}
-                        <div className=" top-selector col-12 d-flex justify-content-around">
+                        <div className=" top-selector">
                             <div className="type-select">
                                 <Link to={'/chat/'+this.props.roomYouNow+"/people"} className='select-img select-ppl'><i className="fa fa-users" aria-hidden="true"></i></Link>
                             </div>
