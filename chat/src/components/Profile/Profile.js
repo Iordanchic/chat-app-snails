@@ -35,9 +35,16 @@ class Profile extends Component {
         }
     }
 
-    handleSave = () =>{
-        let data = JSON.stringify({newname: this.refs.login.value, oldname: this.state.name, newpassword: this.refs.password.value, id: this.state.id, newImg: this.state.img, token: localStorage.getItem("user_token")});
-        fetch(`/changeProfile`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data})
+    handleSave = () => {
+        let data = JSON.stringify({
+            newname: this.refs.login.value,
+            oldname: this.state.name,
+            newpassword: this.refs.password.value,
+            id: this.state.id,
+            newImg: this.state.img,
+            token: localStorage.getItem("user_token")
+        });
+        fetch(`/changeProfile`, {method: 'POST', headers: {"Content-Type": "application/json"}, body: data})
             .then(res => res.json())
             .then(res => {
                 console.log("res", res);
@@ -47,7 +54,10 @@ class Profile extends Component {
         this.setState({
             name: this.refs.login.value,
         });
-    };
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000)
+    }
 
     handleDelete = () =>{
         let data = JSON.stringify({id: this.state.id, token: localStorage.getItem("user_token")});

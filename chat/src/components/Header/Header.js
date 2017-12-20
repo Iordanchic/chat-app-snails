@@ -44,10 +44,11 @@ export default class Header extends Component {
                             {/*<div  className="profile-img" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>*/}
 
                             {/*{localStorage.getItem('user_token') !== null ? */}
-                            {this.state.visible ? <div className='profile-img-header-block'>
+                            {this.state.visible ? <Link to={'/profile'}><div className='profile-img-header-block'>
                                 <div  className="profile-img-edit-pic-header" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
                                 <Link to={'/profile'} className='my-profile'>My profile <i className="fa fa-caret-down" aria-hidden="true"></i></Link>
-                                </div> : null}
+                                </div>
+                                </Link> : null}
                         </div>
 
                     </div>

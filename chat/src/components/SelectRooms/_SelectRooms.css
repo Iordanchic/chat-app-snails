@@ -35,8 +35,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
 }
 .room-select{
+    padding: 0 5px;
+    overflow: hidden;
     cursor: pointer;
     display: block;
     margin: auto;
@@ -45,13 +48,14 @@
     border-radius: 50%;
     background: #ff6c00;
     color: #ffffff;
-    line-height: 90px;
+    line-height: 85px;
     text-align: center;
     margin-bottom: 10px;
     font-size: 20px;
     border: 4px ridge black;
     /*transition: 0.3s linear;*/
     transition: all 0.4s ease-in-out;
+    text-overflow: ellipsis;
 }
 .room-select:hover{
     -webkit-transform: rotate(360deg);
