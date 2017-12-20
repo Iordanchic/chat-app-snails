@@ -136,6 +136,7 @@ class Profile extends Component {
                                 </div>
                             </div>
                             <div className="profile-main col-12 col-md-8">
+
                                 <div className="row">
                                     <div className="col-12 col-md-7">
                                         <div className="profile-info-wrapper">

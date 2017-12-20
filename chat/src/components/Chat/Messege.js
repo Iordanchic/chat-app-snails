@@ -32,10 +32,10 @@ export default class Messege extends Component {
         return (
                 <div className="OneMsg">
                    <div className="row ">
-                       <div className="col-12 col-sm-2 col-md-1">
+                       <div className="col-12 col-sm-2 col-md-2 col-lg-1">
                            <div className="LogoUser" style={this.props.userImg === null ? null : {backgroundImage: 'url('+ require("../../img/"+this.props.userImg+".jpg")+')'}}></div>
                        </div>
-                       <div className="col-12 col-sm-10 col-md-11">
+                       <div className="col-12 col-sm-10 col-md-10 col-lg-11">
                            <div className="Msg">
                               <div className="row">
                                  <div className="col-12">

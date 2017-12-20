@@ -29,7 +29,7 @@
 }
 .rooms-list{
     max-height: 100%;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     height: calc(100% - 65px);
     width: 100%;
     display: flex;
