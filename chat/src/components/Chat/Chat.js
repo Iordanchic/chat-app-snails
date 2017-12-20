@@ -118,7 +118,7 @@ export default class Chat extends Component {
                                         // if(this.state.msgs.length == index){
                                         //     return <Messege item={item} key={index} />
                                         // }
-                                        return <Messege deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
+                                        return <Messege  userImg={item.img} deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
                                     })
                                 }
                             </div>
