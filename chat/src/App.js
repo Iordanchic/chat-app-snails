@@ -18,7 +18,7 @@ import Atest from "./components/Atest/Atest"
 
 class App extends Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state={
       user:{
         login:"",
