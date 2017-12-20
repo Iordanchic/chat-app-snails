@@ -51,7 +51,6 @@ app.use(morgan('dev'));
 
 
 app.post('/msgtobd', function (req, res) {
-    // console.log(req.body);
     var body = req.body;
     res.json({ 'lol-bella': body.lol })
 });
@@ -59,18 +58,14 @@ app.post('/msgtobd', function (req, res) {
 
 io.on('connection', (client) => {
     var msg = mongoose.model('msgs', msgs);
-    // var userinfo = mongoose.model('users',users)
     console.log('client connect')
     client.on('msgtochat', (objmsg) => {
-        console.log(objmsg)
         msg.findOne({ grup: objmsg.grup.toString() }, function (err, res) {
             if (err) throw err;
             var body = JSON.parse(JSON.stringify(res));
             body.msgs.push(objmsg.msgs);
-            // console.log(body)
             msg.update({ grup: body.grup.toString() }, body, function (err) {
                 if (err) throw err;
-                // console.log(body.grup + ' successfully saved.');
             });
         });
         client.emit('msgfromchat', objmsg);
@@ -135,7 +130,8 @@ app.post('/setup', function (req, res) {
                     email: req.body.email,
                     // password: req.body.password,
                     admin: true,
-                    userImg: userImgs[randomNum]
+                    userImg: userImgs[randomNum],
+                    grups:["main"]
                 });
         
                 nick.password = nick.generateHash(req.body.password);
@@ -246,7 +242,6 @@ app.post('/changeProfile', checkToken, function (req, res) {
 // ===== Delete profile
 app.post('/deleteProfile', checkToken, function (req, res) {
     var body = req.body;
-    // console.log(req.body)
     var usersc = mongoose.model('users', userschange);
     usersc.findByIdAndRemove({ _id: req.body.id }, function (err) {
         if (err) throw err;
@@ -255,13 +250,15 @@ app.post('/deleteProfile', checkToken, function (req, res) {
 // ===== Delete msg
 app.post('/deleteMsgs', checkToken, function (req, res) {
     let body = req.body;
-    // console.log(body)
     let msg = mongoose.model('msgs', msgs);
     msg.findOne({grup: req.body.group}, function (err, db_msgs) {
         if(err) throw err;
-        console.log('ONE MESSAGE');
+        var body2 = JSON.parse(JSON.stringify(db_msgs))
+        body2.msgs.splice(body.index,1)
+        msg.update({ grup: body.group.toString() }, body2, function (err) {
+            if (err) throw err;
+        });
     })
-    // console.log(req.body)
     res.json(req.body.token)
 });
 
@@ -283,15 +280,17 @@ app.post('/getllogin', checkToken, function (req, res) {
     })
 });
 
+// ======GetAllPeopleOnChat
+app.post('/getpeopleonchat', checkToken, function (req, res) {
+    var usersc = mongoose.model('users', userschange);
+    usersc.find({grup: res.body}, (err, ressend) => {
+        if (err) throw err;
+        res.json(ressend)
+    })
+});
+// ======Get Img to Msg
 app.post('/getimgtomsg', checkToken, function (req, res) {
     var usersc = mongoose.model('users', userschange);
-    // console.log(req.body);
-    // User.findOne({_id: req.decoded.id}, (err, ressend) => {
-    //     if (err) throw err;
-    //
-    //     console.log(ressend)
-    //     res.json(ressend)
-    // })
     usersc.findOne({name: req.body.name}, (err, ressend) => {
         if (err) throw err;
         res.json(ressend)
@@ -303,8 +302,6 @@ app.post('/test', checkToken, function (req, res) {
     User.findOne({ _id: req.decoded.id }, function (err, db_users) {
         if (err) throw err;
         if (db_users) {
-            // console.log(db_users);
-
             let body = {
                 name: db_users.name,
                 img: db_users.userImg,

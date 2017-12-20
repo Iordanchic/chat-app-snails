@@ -22,7 +22,8 @@ var userSchema = mongoose.Schema({
 		required: true,
 	}, 
 	admin: Boolean,
-	userImg: String
+	userImg: String,
+	grups:[]
 });
 
 userSchema.methods.generateHash = function(password) {
