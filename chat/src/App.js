@@ -8,9 +8,9 @@ import Login         from './components/Login/Login'
 import Header        from "./components/Header/Header";
 import Chat          from "./components/Chat/Chat";
 import Welcome       from "./components/Welcome/Welcome";
-import Footer        from "./components/Footer/Footer";
+// import Footer        from "./components/Footer/Footer";
 import Profile       from "./components/Profile/Profile";
-import SelectRooms   from "./components/SelectRooms/SelectRooms";
+// import SelectRooms   from "./components/SelectRooms/SelectRooms";
 import SelectRoomsXS from "./components/SelectRoomsXS/SelectRoomsXS";
 import SignUp        from "./components/Signup/SignUp";
 
