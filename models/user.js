@@ -20,7 +20,8 @@ var userSchema = mongoose.Schema({
 	email: {
 		type: String,
 		required: true,
-	}, 
+	},
+	grups: Array, 
 	admin: Boolean,
 	userImg: String,
 	grups:[]

@@ -56,8 +56,6 @@ export default class Chat extends Component {
         .then(res => res.json())
         .then(res => {
 
-            console.log(res);
-
         })
         .catch(err => console.log(err));
     }
@@ -101,7 +99,7 @@ export default class Chat extends Component {
         this.getlogin();
 
         socket.on('msgfromchat', (objmsg) => {
-            if(objmsg.grup == this.state.grup){
+            if(objmsg.grup === this.state.grup){
                 this.setState({msgs:[...this.state.msgs, objmsg.msgs]})
             }
         })
@@ -114,17 +112,17 @@ export default class Chat extends Component {
                     <SelectRooms allgrup={this.state.allgrup} roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
                     <div className="App col-9">
                         <div ref="allmsg" id="Allmsg">
-                            {this.state.msgs.length == 0?<p className='loader'>loading</p>:
+                            {this.state.msgs.length === 0?<p className='loader'>loading</p>:
                                 this.state.msgs.map((item,index, arr) => {
                                     // if(this.state.msgs.length == index){
                                     //     return <Messege item={item} key={index} />    
                                     // }
-                                    return <Messege deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
+                                    return <Messege userImg={item.img} deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
                                 })
                             }
                         </div>
                         <div className="chat-input">
-                            <Input user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
+                            <Input userImg={this.state.img} user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
                         </div>
                     </div>
                 </div>
