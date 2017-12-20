@@ -239,7 +239,7 @@ app.post('/changeProfile', checkToken, function (req, res) {
         // });
     }
 });
-// ===== Delete profile
+// ===== Delete profile (Class: Profile)
 app.post('/deleteProfile', checkToken, function (req, res) {
     var body = req.body;
     var usersc = mongoose.model('users', userschange);
@@ -247,7 +247,7 @@ app.post('/deleteProfile', checkToken, function (req, res) {
         if (err) throw err;
     });
 });
-// ===== Delete msg
+// ===== Delete msg (Class: Chat)
 app.post('/deleteMsgs', checkToken, function (req, res) {
     let body = req.body;
     let msg = mongoose.model('msgs', msgs);
@@ -305,6 +305,7 @@ app.post('/test', checkToken, function (req, res) {
             let body = {
                 name: db_users.name,
                 img: db_users.userImg,
+                groups: db_users.grups,
                 id: req.decoded.id
             }
             res.json(body)
