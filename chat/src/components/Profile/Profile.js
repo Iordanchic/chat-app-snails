@@ -27,6 +27,7 @@ class Profile extends Component {
             name: null,
             img: null,
             modalVisibility: false,
+            saveBtn: false,
             imgArr: ['icon1', 'icon2', 'icon4', 'icon5', 'icon6', 'icon7', 'icon8', 'icon9', 'icon10', 'icon11', 'icon12', 'icon13', 'icon14', 'icon15', 'icon16'],
             chosenImg: null
         }
@@ -69,21 +70,20 @@ class Profile extends Component {
         })
     };
     handleImgChoose = (a) => {
-        // console.log(a);
-        this.setState({img: a, modalVisibility: !this.state.modalVisibility});
-        // console.log(this.state)
+        this.setState({img: a,
+            modalVisibility: !this.state.modalVisibility,
+            saveBtn: true
+        });
     };
 
     render() {
-        // console.log(this.state.img)
-        // console.log(''+this.state.img+'')
         return (
             <div className='profile-container'>
                 {this.state.access === null? <h1 className='loader'> Loading </h1> : this.state.access === true?
                     <div className="profile-wrapper">
                         <div className="row">
-                            <h1 className='profile-heading col-12'>Profile settings</h1>
-                            <div className="profile-left-sidebar col-3">
+                            <h1 className='profile-heading col-sm-12'>Profile settings</h1>
+                            <div className="profile-left-sidebar col-12 col-md-3">
                                 <div className="row">
                                     <button className="profile-btn user-account col-12">User account</button>
                                     <button className="profile-btn exit-account col-12" onClick={this.handleLogOut}>Logout</button>
@@ -99,7 +99,6 @@ class Profile extends Component {
                                             {this.state.imgArr.map((item, i) => {
                                                 return <ProfileImg data={null} key={i} item={item} i={i} handleImgChoose={this.handleImgChoose}/>
                                             })}
-
                                         </div>
                                     </div>
                                     <div className="profile-img-buttons">
@@ -112,15 +111,15 @@ class Profile extends Component {
                             {/*</div>*/}
 
 
-                            <div className="profile-main col-8">
+                            <div className="profile-main col-12 col-md-8">
                                 <div className="row">
-                                    <div className="profile-img-edit-block col-4">
+                                    <div className="profile-img-edit-block col-12 col-md-4">
                                         <div  className="profile-img-edit-pic" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
                                         <div className="profile-img-buttons">
                                             <button className="profile-img-edit" onClick={this.handleEditImg}>Edit</button>
                                         </div>
                                     </div>
-                                    <div className="profile-info-wrapper col-7">
+                                    <div className="profile-info-wrapper col-12 col-md-7">
                                         <label htmlFor="login-edit">Login:</label>
                                         <input ref='login' className="profile-info login-edit" name='login-edit' defaultValue={this.state.name} required/>
                                         {/*<label htmlFor="email-edit">Email:</label>*/}
@@ -131,7 +130,7 @@ class Profile extends Component {
                                     <div className="profile-btns-wrapper col-12">
                                         <button className="profile-del"  onClick={this.handleDelete}>Delete profile</button>
                                         <Link to={'/chat/main'} className="profile-cancel">Back to chat</Link>
-                                        <button className="profile-save" onClick={this.handleSave}>Save</button>
+                                        <button className={this.state.saveBtn === true ? "profile-save unsaved" : "profile-save"} onClick={this.handleSave}>Save</button>
                                     </div>
                                 </div>
                             </div>

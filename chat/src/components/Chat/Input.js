@@ -26,7 +26,6 @@ export default class Chat extends Component {
             objmsg.msgs.msg = this.refs.msg.value;
             this.props.socket.emit('msgtochat', objmsg);
             this.refs.msg.value="";
-            this.props.Allmsg.scrollTop = this.props.Allmsg.scrollHeight+200;
         }
     };
 
