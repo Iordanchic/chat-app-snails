@@ -9,7 +9,7 @@ export default class Header extends Component {
         fetch(`/test`, { method: 'POST', headers: { "Content-Type": "application/json"}, body: data})
             .then(res => res.json())
             .then(res => {
-                console.log("res", res);
+                // console.log("res", res);
                 if(res.success === false) {
                     this.setState({access: false})
                 } else {

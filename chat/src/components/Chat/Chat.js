@@ -91,7 +91,6 @@ export default class Chat extends Component {
         })
         .then(res => res.json())
         .then(res => {
-            // console.log(res)
             this.setState({author:res.name, allgrup:res.grups})
         })
         .catch(err => console.log(err));
@@ -109,8 +108,6 @@ export default class Chat extends Component {
     }
 
     render() {
-        // console.log(this.state.author)
-        
         return (
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
@@ -128,12 +125,10 @@ export default class Chat extends Component {
                         </div>
                         <div className="chat-input">
                             <Input user={this.state.author} Allmsg={this.refs.Allmsg} img={this.state.img} grup={this.state.grup} socket={socket} udateComponentsMessege={this.udateComponentsMessege}/>
-
                         </div>
                     </div>
                 </div>
             </div>
-            // </div>
             
         )
     }
