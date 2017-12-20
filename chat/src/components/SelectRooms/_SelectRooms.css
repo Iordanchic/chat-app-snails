@@ -2,8 +2,11 @@
     height: 100%;
 }
 .top-selector{
-    margin: 0 auto;
-    height: 155px;
+    /*margin: 0 auto;*/
+    /*height: 155px;*/
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 .type-select{
     width: 50px;
@@ -27,6 +30,10 @@
     max-height: 100%;
     overflow-y: scroll;
     height: calc(100% - 155px);
+    width: 100%;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: center;*/
 }
 .room-select{
     cursor: pointer;

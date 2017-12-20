@@ -40,9 +40,14 @@
     left: -15px;
 }
 .msg-top{
+    display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid #dbdbdb;
-    height: 12px;
-    padding-bottom: 24px;
+    /*height: 12px;*/
+    /*padding-bottom: 24px;*/
+}
+.msg-top p{
+    margin: 0;
 }
 .LogoUser{
     background: #777e81;

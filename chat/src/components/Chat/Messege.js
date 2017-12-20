@@ -40,15 +40,15 @@ export default class Messege extends Component {
                               <div className="row">
                                  <div className="col-12">
                                      <div className="msg-top">
-                                         <div className="row">
-                                             <p className="UserName col-9">{this.props.item.author}</p>
-                                             <div className="data-info col-3">
-                                                 <p className='data-written'>written on  </p> <p className="Data"> {this.props.item.date}</p> {this.props.owner ? <p onClick={this.handleDeleteMsg} className="data-written comment-delete">X</p>:null} 
-                                             </div>
+                                         <p className="UserName">{this.props.item.author}</p>
+                                         <div className="data-info">
+                                             <p className='data-written'>written on  </p> <p className="Data"> {this.props.item.date}</p> {this.props.owner ? <p onClick={this.handleDeleteMsg} className="data-written comment-delete">X</p>:null}
                                          </div>
                                      </div>
                                  </div>
-                                  <p className="Text col-12">{this.props.item.msg}</p>
+                                  <div className="col-12">
+                                      <p className="Text">{this.props.item.msg}</p>
+                                  </div>
                               </div>
                            </div>
                        </div>
