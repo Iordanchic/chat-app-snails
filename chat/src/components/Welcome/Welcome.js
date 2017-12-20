@@ -24,9 +24,10 @@ class Welcome extends Component {
                                <li>Send messages to your friends and enjoy the conversation</li>
                                <li>Look through the history of your chat</li>
                                <li>Choose a really nice given image for your userpic</li>
-                               <li>Change your yousername or password in your personal profile if you wish to</li>
+                               <li>Change your username or password in your personal profile if you wish to</li>
+                               <li>Create new groups</li>
                            </ul>
-                           <p>In a full version of this app you would be able to send emojes and upload files, create new groups, see your friends profiles, add favourites.</p>
+                           <p>In a full version of this app you would be able to send emojes and upload files,  see your friends profiles, add favourites.</p>
                            <div className="links-wrapper">
                                <Link to={'signup'}>Sign Up </Link>
                                <span>or </span>
