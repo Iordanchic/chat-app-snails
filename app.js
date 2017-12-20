@@ -29,11 +29,13 @@ app.set('superSecret', config.secret); // secret variable
 var connect = mongoose.connection;
 var msgs = mongoose.Schema({
     grup: String,
-    msgs: {
+    admin: String,
+    msgs: [{
+        img: String,
         msg: String,
         author: String,
         date: String,
-    },
+    }],
 });
 var users = mongoose.Schema({
     
@@ -260,6 +262,25 @@ app.post('/deleteMsgs', checkToken, function (req, res) {
         });
     })
     res.json(req.body.token)
+});
+
+// ======addNewGrup
+app.post('/addNewGrup', checkToken, function (req, res) {
+    var msg = mongoose.model('msgs', msgs);
+    var grup = new msg({
+        grup:req.body.grup.toString(),
+        admin:req.body.admin.toString(),
+        msgs:[{
+            img: "bot",
+            author: "Snails bot",
+            msg: "Hello it's chat room",
+            date: "20-12-2017"
+        }]
+    })
+    grup.save((err) => {
+        if (err) throw err;
+        res.json("")
+    })
 });
 
 // ======Beginchat
