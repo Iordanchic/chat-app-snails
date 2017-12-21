@@ -5,8 +5,8 @@ const app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var aaa = require('./routes/aaa');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+// var server = require('http').createServer(app);
+// var io = require('socket.io')(server);
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var url = 'mongodb://snail:snails@ds129386.mlab.com:29386/chat_db';
 var morgan = require('morgan');
@@ -15,6 +15,19 @@ var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User = require('./models/user'); // get our mongoose model
 var mongoose = require('mongoose');
+
+
+const path = require('path');
+const socketIO = require('socket.io');
+const PORT = process.env.PORT || 8001;
+const PORT2 = process.env.PORT || 3001;
+const INDEX = path.join(__dirname, '/chat/build/index.html');
+const server = express()
+.use((req, res) => res.sendFile(INDEX) )
+.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+const io = socketIO(server);
+
+
 
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
@@ -65,7 +78,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-
+// RENDER index(all app) file
+app.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname, 'chat/build/index.html'))
+})
 
 app.post('/msgtobd', function (req, res) {
     var body = req.body;
@@ -418,11 +434,11 @@ app.post('/authenticate', function (req, res) {
     });
 });
 
-const port = 8001;
-io.listen(port);
-console.log('listening on port to socket', port);
+// const port = 8001;
+// io.listen(port);
+// console.log('listening on port to socket', port);
 
 app.use('/aaa', aaa);
 
-app.listen(3001, () => console.log('listening on port to 3001!'))
+app.listen(PORT2, () => console.log('listening on port to 3001!'))
 
