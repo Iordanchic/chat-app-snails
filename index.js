@@ -29,7 +29,7 @@ const io = socketIO(server);
 
 
 
-mongoose.connect(config.database); // connect to database
+mongoose.createConnection(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 
 // var multer = require('multer'); 
