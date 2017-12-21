@@ -80,8 +80,12 @@ app.use(morgan('dev'));
 
 // RENDER index(all app) file
 app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname, 'chat/build/index.html'))
+    res.sendFile(path.join(__dirname, '/chat/build/index.html'))
 })
+// app.get('/', (req, res) => {
+//     console.log(__dirname + '/poker/build/index.html');
+//     res.send(sdafaadfa);
+// })
 
 app.post('/msgtobd', function (req, res) {
     var body = req.body;
