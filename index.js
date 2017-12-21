@@ -5,7 +5,7 @@ const app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var aaa = require('./routes/aaa');
-var server = require('http').createServer(app);
+// var server = require('http').createServer(app);
 // var io = require('socket.io')(server);
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var url = 'mongodb://snail:snails@ds129386.mlab.com:29386/chat_db';
@@ -22,14 +22,14 @@ const socketIO = require('socket.io');
 const PORT = process.env.PORT || 8001;
 const PORT2 = process.env.PORT || 3001;
 const INDEX = path.join(__dirname, '/chat/build/index.html');
-// const server = express()
-// .use((req, res) => res.sendFile(INDEX) )
-// .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+const server = express()
+.use((req, res) => res.sendFile(INDEX) )
+.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 const io = socketIO(server);
 
 
 
-mongoose.createConnection(config.database); // connect to database
+mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 
 // var multer = require('multer'); 
@@ -78,7 +78,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-// RENDER index(all app) file!!
+// RENDER index(all app) file
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname, 'chat/build/index.html'))
 })
