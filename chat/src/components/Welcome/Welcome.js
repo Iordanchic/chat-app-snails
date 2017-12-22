@@ -25,7 +25,7 @@ class Welcome extends Component {
                                <li>Look through the history of your chat</li>
                                <li>Choose a really nice given image for your userpic</li>
                                <li>Change your username or password in your personal profile if you wish to</li>
-                               <li>Create new groups</li>
+                               <li>Create new groups and invite people you want to chat with</li>
                            </ul>
                            <p>In a full version of this app you would be able to send emojes and upload files,  see your friends profiles, add favourites.</p>
                            <div className="links-wrapper">
