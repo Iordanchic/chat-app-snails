@@ -52,7 +52,7 @@ class App extends Component {
 
   render() {
     // const WrappedHome = function(props) {
-    //   return (<Chat {...props} getUserInfo={this.getUserInfo} />);
+    ///   return (<Chat {...props} getUserInfo={this.getUserInfo} />);
     // };
     return (
         <div className="container">
