@@ -3,17 +3,10 @@ import Messege from './Messege';
 import SelectRooms from '../SelectRooms/SelectRooms';
 import './_Chat.css';
 import { BrowserRouter, withRouter} from 'react-router-dom'
-// import Footer from '../components/Footer';
-// import {bindActionCreators} from 'redux';
-// import {Route, Link} from 'react-router-dom';
-// import {objmsg} from '../actions';
 import io from 'socket.io-client';
 import Input from './Input';
-// import SelectRooms from "../components/SelectRooms"
 const socket = io('http://localhost:8001');
-// const mapDispatchToProps = dispatch => ( bindActionCreators({objmsg}, dispatch) );
 
-// @connect(null, mapDispatchToProps)
 export default class Chat extends Component {
     constructor(props) {
         let data = JSON.stringify({token: localStorage.getItem("user_token")});
@@ -61,7 +54,6 @@ export default class Chat extends Component {
     }
 
     scrollFunn = () => {
-        // this.state.scrollCheck ? this.refs.allmsg.scrollTop = this.refs.allmsg.scrollHeight : null;
         this.refs.allmsg.scrollTop = this.refs.allmsg.scrollHeight;
     }
 
@@ -115,9 +107,6 @@ export default class Chat extends Component {
                             <div ref="allmsg" id="Allmsg">
                                 {this.state.msgs.length == 0?<p className='loader'>loading</p>:
                                     this.state.msgs.map((item,index, arr) => {
-                                        // if(this.state.msgs.length == index){
-                                        //     return <Messege item={item} key={index} />
-                                        // }
                                         return <Messege  userImg={item.img} deleteMsg={this.deleteMsg} owner={item.author === this.state.author ? true : false} item={item} key={index} arr={arr} index={index}/>
                                     })
                                 }

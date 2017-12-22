@@ -91,6 +91,10 @@
     outline: none;
     padding-left: 10px;
 }
+.profile-info-wrapper .user-add{
+    overflow-y: scroll;
+    height: 150px;
+}
 
 .profile-btns-wrapper {
     padding-top: 20px;

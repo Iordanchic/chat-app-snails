@@ -11,7 +11,6 @@ class Login extends Component {
     handleLogin = () => {
         let loginValue = this.refs.login.value;
         let passValue = this.refs.pass.value;
-        // console.log(!passValue.includes(' '))
        
         if(
             loginValue.length    < 15
@@ -67,7 +66,6 @@ class Login extends Component {
                             <button onClick={this.handleLogin}> Enter </button>
                             <br />
                             <Link to={'signup'}>Sign Up </Link>
-                            {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
                         </div>
                     </div>
                 </div>

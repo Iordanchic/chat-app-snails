@@ -66,7 +66,6 @@ class SignUp extends React.Component {
                             <button onClick={this.handleSignUp}> Sign Up </button>
                             <br />
                             <Link to={"/login"}>Already got an account? </Link>
-                            {/* <button onClick={this.getInfoFromServer}> Check Post request </button> */}
                         </div>
                     </div>
                 </div>

@@ -94,7 +94,7 @@ class Profile extends Component {
         }else{
             this.setState({addgrup:false})
         }
-    }
+    };
 
     handleAdd = () =>{
         let data = JSON.stringify({grup:this.refs.grup.value, admin:this.state.name, token: localStorage.getItem("user_token"), users:this.state.userstogrup});
@@ -109,7 +109,9 @@ class Profile extends Component {
 
             })
             .catch(err => console.log(err));
-    }
+        // this.refs.grup.value = null;
+        this.props.history.push(`/chat/${this.refs.grup.value}`)
+    };
 
     search = () =>{
         let data = JSON.stringify({user:this.refs.user.value, token: localStorage.getItem("user_token")});
@@ -127,17 +129,17 @@ class Profile extends Component {
                 }
             })
             .catch(err => console.log(err));
+        this.refs.user.value = null;
     }
 
     render() {
-        console.log(this.state.userstogrup)
         return (
             <div className='profile-container'>
                 {this.state.access === null? <h1 className='loader'> Loading </h1> : this.state.access === true?
                     <div className="profile-wrapper">
                     {this.state.addgrup==true?
 
-                    //====== Add new grup
+                    //====== Add new group
                         <div className="row">
                             <h1 className='profile-heading col-sm-12'>Add group</h1>
                             <div className="profile-left-sidebar col-12 col-md-3">
@@ -155,7 +157,7 @@ class Profile extends Component {
                                             <label htmlFor="login-edit">Add user:</label>
                                             <input ref='user' className="profile-info login-edit" name='login-edit' defaultValue="" required/>
                                             <button className="profile-btn exit-account col-12" onClick={this.search}>Search user</button>
-                                            <div>
+                                            <div className='user-add'>
                                                 <ul>
                                                     {this.state.userstogrup === null?<li>null</li>:this.state.userstogrup.map((item,index) => {return <li key={index}><div className="LogoUser" style={{backgroundImage: 'url('+ require("../../img/"+item.userImg+".jpg")+')'}}></div>{item.name}</li>})}
                                                 </ul>
@@ -195,7 +197,6 @@ class Profile extends Component {
                                 </div>
                                 <div className="profile-img-buttons">
                                     <div className="row d-flex justify-content-center">
-                                        {/*<button className="profile-img-edit img-choose  col-3">Edit</button>*/}
                                         <button className="profile-img-edit img-choose  col-3" onClick={this.handleEditImg}>Close</button>
                                     </div>
                                 </div>
@@ -217,8 +218,6 @@ class Profile extends Component {
                                             <div className="profile-info-wrapper">
                                                 <label htmlFor="login-edit">Login:</label>
                                                 <input ref='login' className="profile-info login-edit" name='login-edit' defaultValue={this.state.name} required/>
-                                                {/*<label htmlFor="email-edit">Email:</label>*/}
-                                                {/*<input className="profile-info email-edit" name='email-edit'/>*/}
                                                 <label htmlFor="password-edit">New Password:</label>
                                                 <input type='password' ref='password' className="profile-info password-edit" name='password-edit' placeholder='Your new password' required/>
                                             </div>
