@@ -110,7 +110,7 @@ export default class Chat extends Component {
             <div key={this.state.render} className="main-chat-wrapper">
                 <div className="row main-chat-row">
                     <SelectRooms allgrup={this.state.allgrup} roomYouNow={this.state.grup} usersOnGrup={this.state.users} user={this.state.user}/>
-                    <div className="col-11 col-sm-9">
+                    <div className="col-12 col-md-9">
                         <div className="App">
                             <div ref="allmsg" id="Allmsg">
                                 {this.state.msgs.length == 0?<p className='loader'>loading</p>:

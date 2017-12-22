@@ -40,3 +40,17 @@ header {
     -webkit-background-size: 100%;
     background-size: 100%;
 }
+.burger-menu{
+    text-align: center;
+}
+.burger-menu i{
+    display: block;
+    width: 100px;
+    height: 100px;
+    color: #00ffff;
+    cursor: pointer;
+    line-height: 56px;
+}
+.burger-menu .cross{
+    display: none;
+}

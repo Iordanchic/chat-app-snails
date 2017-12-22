@@ -24,9 +24,26 @@ export default class Header extends Component {
             name: null,
             img: null
         };
-        // console.log(this.state.name)
-
     }
+    handleMenu = () => {
+        var clickMenu = document.getElementsByClassName('left-bar-wrapper')[0];
+        var arr = clickMenu.className.split(' ');
+        var dNone = arr.indexOf('d-none');
+        if(dNone > -1){
+            arr.splice(dNone, 1);
+            clickMenu.className = arr.join(' ');
+            var arrow = document.getElementsByClassName('fa-bars')[0];
+            var newArrow = arrow.className.replace('fa-bars', 'fa-times');
+            arrow.className = newArrow;
+            console.log(arrow.className)
+        } else {
+            clickMenu.className = clickMenu.className + ' d-none';
+            var arrow = document.getElementsByClassName('fa-times')[0];
+            var newArrow = arrow.className.replace('fa-times','fa-bars');
+            arrow.className = newArrow;
+        }
+
+};
 
 
 
@@ -35,15 +52,17 @@ export default class Header extends Component {
         return (
             <header>
                 <div className="row">
-                    <div className="col-5 col-md-3 d-flex justify-content-center">
+                    <div className="col-5 d-none d-md-block col-md-3 d-md-flex justify-content-center">
                         <Link to={'/chat/main'} style={{backgroundImage: 'url('+ require("../../img/logo.png")+')'}} className='logo '></Link>
                     </div>
+                    <div className="burger-menu d-block d-md-none col-5">
+                        <i className='fa fa-bars' aria-hidden="true" onClick={this.handleMenu}></i>
+                        <i className=" cross fa fa-times" aria-hidden="true"></i>
 
-                    <div className=" col-4 offset-3  col-md-2 offset-md-7">
+                    </div>
+
+                    <div className=" col-4 offset-3 col-md-2  offset-md-7">
                         <div className="profile-block">
-                            {/*<div  className="profile-img" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>*/}
-
-                            {/*{localStorage.getItem('user_token') !== null ? */}
                             {this.state.visible ? <Link to={'/profile'}><div className='profile-img-header-block'>
                                 <div  className="profile-img-edit-pic-header" style={{backgroundImage: 'url('+ require("../../img/"+this.state.img+".jpg")+')'}}></div>
                                 <Link to={'/profile'} className='my-profile'>My profile <i className="fa fa-caret-down" aria-hidden="true"></i></Link>
