@@ -28,9 +28,9 @@
     color: #00ffff;
 }
 .rooms-list{
-    max-height: 100%;
+    /*max-height: 100%;*/
     /*overflow-y: scroll;*/
-    height: calc(100% - 65px);
+    height: calc(100% - 70px);
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -57,12 +57,22 @@
     transition: all 0.4s ease-in-out;
     text-overflow: ellipsis;
 }
+
+.rooms-height{
+    height: 100%;
+}
 .room-select:hover{
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
     text-decoration: none;
 }
-
+.rooms-groups-list{
+    overflow-y: scroll;
+}
+.sidebar-ppl{
+    overflow-y: scroll;
+    width: 100%;
+}
 .sidebar-ppl > div{
     height: 65px;
 

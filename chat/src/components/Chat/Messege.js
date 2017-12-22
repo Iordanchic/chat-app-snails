@@ -11,22 +11,8 @@ export default class Messege extends Component {
 
     }
     handleDeleteMsg = () => {
-        console.log(this.props.index)
         this.props.deleteMsg(this.props.index)
-    }
-    // componentDidMount(){
-    //     var data = JSON.stringify({token: localStorage.getItem('user_token'),name:this.state.name});
-    //     fetch(`/getimgtomsg`, {
-    //             method: 'POST',
-    //             headers: { "Content-Type": "application/json"},
-    //             body: data
-    //         })
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             this.setState({img: res.userImg})
-    //         })
-    //         .catch(err => console.log(err));
-    // }
+    };
 
     render() {
         return (
